@@ -3,6 +3,8 @@ Sparky
 Sparky is a game engine I'm writing while watching The Cherno's game engine video
 series on YouTube.
 
+https://youtube.com/playlist?list=PLlrATfBNZ98fqE45g3jZA_hLGUrD4bo6_&si=_PbAR4AgU0UG696Z
+
 How To Build
 
 You will need CMake and Emscripten to build/run the project.
