@@ -66,5 +66,5 @@ To run the web application:
         -- or --
     python -m SimpleHTTPServer # python 2
 
-    Open a web browser and point to http://localhost:8000/
+    Open a web browser and point to http://localhost:8000/demo.html
 
