@@ -5,7 +5,7 @@ namespace sparky {
 		StaticSprite::StaticSprite(float x,float y,float width,float height,const math::vec4& color,
 				Shader& shader)
 					: Renderable2D(math::vec3(x,y,0.0f),math::vec2(width,height),color),
-							m_shader(shader) {
+						m_shader(shader) {
 			GLfloat vertices[] = {
 				0.0f,	0.0f,	0.0f,
 				0.0f,	height,	0.0f,

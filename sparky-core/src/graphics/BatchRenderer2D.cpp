@@ -39,9 +39,9 @@ namespace sparky {
 			glBindBuffer(GL_ARRAY_BUFFER,0);
 			CHECK_GL_STATUS();
 
-			GLushort *indices = new GLushort[INDICES_SIZE];
+			GLuint *indices = new GLuint[INDICES_SIZE];
 
-			for (int i=0,offset=0 ; i<INDICES_SIZE ; i+=6,offset+=4) {
+			for (uint32_t i=0,offset=0 ; i<INDICES_SIZE ; i+=6,offset+=4) {
 				indices[i+0] = offset + 0;
 				indices[i+1] = offset + 1;
 				indices[i+2] = offset + 2;
@@ -129,7 +129,7 @@ namespace sparky {
 			CHECK_GL_STATUS();
 			m_IBO->bind();
 
-			glDrawElements(GL_TRIANGLES,m_indexCount,GL_UNSIGNED_SHORT,nullptr);
+			glDrawElements(GL_TRIANGLES,m_indexCount,GL_UNSIGNED_INT,nullptr);
 			CHECK_GL_STATUS();
 
 			m_IBO->unbind();

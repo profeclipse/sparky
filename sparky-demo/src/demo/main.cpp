@@ -1,6 +1,8 @@
 #include <functional>
 #include <iostream>
 #include <cstddef>
+#include <vector>
+#include <time.h>
 #include "sparky-core.h"
 
 #define BATCH_RENDERER 1
@@ -40,14 +42,33 @@ int main(int,char *[]) {
 	shader.setUniformVec2("light_pos",vec2(4.0,1.5f));
 
 #if BATCH_RENDERER
-	Sprite sprite1(4.0f,3.0f,8.0f,4.0f,vec4(0.2f,0.3f,0.8f,1.0f));
-	Sprite sprite2(1.0f,1.0f,8.0f,4.0f,vec4(0.0f,0.8f,0.8f,1.0f));
 	BatchRenderer2D renderer;
 #else
-	StaticSprite sprite1(4.0f,3.0f,8.0f,4.0f,vec4(0.2f,0.3f,0.8f,1.0f),shader);
-	StaticSprite sprite2(1.0f,1.0f,8.0f,4.0f,vec4(0.0f,0.8f,0.8f,1.0f),shader);
 	Simple2DRenderer renderer;
 #endif
+
+	std::vector<Renderable2D*> sprites;
+
+	srand(time(nullptr));
+
+	float step = 0.05f;
+	for (float y=0.0f ; y<9.0f ; y+=step) {
+		for (float x=0.0f ; x<16.0f ; x+=step) {
+			sprites.push_back(new
+#if BATCH_RENDERER
+					Sprite
+#else
+					StaticSprite
+#endif
+					(x,y,step*0.9f,step*0.9f,vec4(rand() % 1000 / 1000.0f,0.0f,1.0f,1.0f)
+#if !BATCH_RENDERER
+						,shader
+#endif
+						));
+		}
+	}
+
+	std::cout << "Sprite Count: " << sprites.size() << std::endl;
 
 	std::function<void()> mainloop = [&] {
 		window.clear();
@@ -56,14 +77,11 @@ int main(int,char *[]) {
 		window.getMousePos(x,y);
 		shader.setUniformVec2("light_pos",vec2((float)(x*16.0f/960.0f),(float)(9.0f-y*9.0f/540.0f)));
 
-#if BATCH_RENDERER
 		renderer.begin();
-#endif
-		renderer.submit(&sprite2);
-		renderer.submit(&sprite1);
-#if BATCH_RENDERER
+		for (size_t i=0 ; i<sprites.size() ; ++i) {
+			renderer.submit(sprites[i]);
+		}
 		renderer.end();
-#endif
 		renderer.flush();
 
 		window.update();
