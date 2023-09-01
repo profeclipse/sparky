@@ -1,12 +1,9 @@
 #include <functional>
 #include <iostream>
 #include <cstddef>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#endif
 #include "sparky-core.h"
+
+#define BATCH_RENDERER 1
 
 void dispatch_main(void* fp) {
 	std::function<void()>* func=(std::function<void()>*)fp;
@@ -39,11 +36,18 @@ int main(int,char *[]) {
 	mat4 ortho = mat4::orthographic(0.0f,16.0f,0.0f,9.0f,-1.0f,1.0f);
 	shader.setUniformMat4("pr_matrix",ortho);
 	shader.setUniformMat4("vw_matrix",mat4::identity());
+	shader.setUniformMat4("ml_matrix",mat4::identity());
 	shader.setUniformVec2("light_pos",vec2(4.0,1.5f));
 
-	Renderable2D sprite1(vec3(4.0f,3.0f,0.0f),vec2(8.0f,4.0f),vec4(0.2f,0.3f,0.8f,1.0f),shader);
-	Renderable2D sprite2(vec3(1.0f,1.0f,0.5f),vec2(8.0f,4.0f),vec4(0.0f,0.8f,0.8f,1.0f),shader);
+#if BATCH_RENDERER
+	Sprite sprite1(4.0f,3.0f,8.0f,4.0f,vec4(0.2f,0.3f,0.8f,1.0f));
+	Sprite sprite2(1.0f,1.0f,8.0f,4.0f,vec4(0.0f,0.8f,0.8f,1.0f));
+	BatchRenderer2D renderer;
+#else
+	StaticSprite sprite1(4.0f,3.0f,8.0f,4.0f,vec4(0.2f,0.3f,0.8f,1.0f),shader);
+	StaticSprite sprite2(1.0f,1.0f,8.0f,4.0f,vec4(0.0f,0.8f,0.8f,1.0f),shader);
 	Simple2DRenderer renderer;
+#endif
 
 	std::function<void()> mainloop = [&] {
 		window.clear();
@@ -52,8 +56,14 @@ int main(int,char *[]) {
 		window.getMousePos(x,y);
 		shader.setUniformVec2("light_pos",vec2((float)(x*16.0f/960.0f),(float)(9.0f-y*9.0f/540.0f)));
 
+#if BATCH_RENDERER
+		renderer.begin();
+#endif
 		renderer.submit(&sprite2);
 		renderer.submit(&sprite1);
+#if BATCH_RENDERER
+		renderer.end();
+#endif
 		renderer.flush();
 
 		window.update();

@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <cstddef>
 #include <iostream>
-#include "utils/FileUtils.h"
+#include "sparky-gl.h"
+#include "sparky-utils.h"
 
 namespace sparky {
 	namespace utils {
@@ -25,6 +26,14 @@ namespace sparky {
 			delete[] data;
 
 			return result;
+		}
+
+		void check_gl_status(const char* file,int line) {
+			int result;
+			while ((result = glGetError()) != GL_NO_ERROR) {
+				std::cout << "OpenGL Error - " << result << " in file " << file
+					<< " at line " << line << std::endl;
+			}
 		}
 	}
 }

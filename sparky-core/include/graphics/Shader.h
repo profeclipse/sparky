@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
+#include "sparky-gl.h"
 #include "sparky-math.h"
 
 namespace sparky {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
+#include "sparky-gl.h"
 
 namespace sparky {
 	namespace graphics {
@@ -11,6 +11,7 @@ namespace sparky {
 
 			public:
 				Buffer(GLfloat* data,GLsizei count,GLuint componentCount);
+				~Buffer();
 
 				GLint getComponentCount() const	{ return m_componentCount; }
 

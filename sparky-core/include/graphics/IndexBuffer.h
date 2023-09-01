@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
+#include "sparky-gl.h"
 
 namespace sparky {
 	namespace graphics {
@@ -11,6 +11,7 @@ namespace sparky {
 
 			public:
 				IndexBuffer(GLushort* data,GLsizei count);
+				~IndexBuffer();
 
 				GLuint getCount() const		{ return m_count; }
 

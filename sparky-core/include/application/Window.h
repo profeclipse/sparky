@@ -1,6 +1,6 @@
 #pragma once
 #include <cstddef>
-#include <GLFW/glfw3.h>
+#include "sparky-gl.h"
 
 namespace sparky {
 	namespace application {

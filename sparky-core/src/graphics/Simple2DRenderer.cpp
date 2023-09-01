@@ -1,23 +1,26 @@
+#include "sparky-utils.h"
 #include "graphics/Simple2DRenderer.h"
 
 namespace sparky {
 	namespace graphics {
 		void Simple2DRenderer::submit(const Renderable2D* renderable) {
-			m_renderQueue.push_back(renderable);
+			m_renderQueue.push_back((StaticSprite*)renderable);
 		}
 
 		void Simple2DRenderer::flush() {
 			while (!m_renderQueue.empty()) {
-				const Renderable2D* r = m_renderQueue.front();
+				const StaticSprite* sprite = m_renderQueue.front();
 
-				r->getVAO()->bind();
-				r->getIBO()->bind();
+				sprite->getVAO()->bind();
+				sprite->getIBO()->bind();
 
-				r->getShader().setUniformMat4("ml_matrix",math::mat4::translate(r->getPosition()));
-				glDrawElements(GL_TRIANGLES,r->getIBO()->getCount(),GL_UNSIGNED_SHORT,nullptr);
+				sprite->getShader().setUniformMat4("ml_matrix",
+						math::mat4::translate(sprite->getPosition()));
+				glDrawElements(GL_TRIANGLES,sprite->getIBO()->getCount(),GL_UNSIGNED_SHORT,nullptr);
+				CHECK_GL_STATUS();
 
-				r->getIBO()->unbind();
-				r->getVAO()->unbind();
+				sprite->getIBO()->unbind();
+				sprite->getVAO()->unbind();
 
 				m_renderQueue.pop_front();
 			}

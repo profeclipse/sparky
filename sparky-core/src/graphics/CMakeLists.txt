@@ -5,4 +5,7 @@ target_sources(
 	IndexBuffer.cpp
 	VertexArray.cpp
 	Simple2DRenderer.cpp
+	BatchRenderer2D.cpp
+	StaticSprite.cpp
+	Sprite.cpp
 	)

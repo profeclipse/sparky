@@ -1,6 +1,7 @@
 #include <iostream>
-#include <glad/glad.h>
-#include <application/Window.h>
+#include "sparky-gl.h"
+#include "sparky-utils.h"
+#include "application/Window.h"
 
 namespace sparky {
 	namespace application {
@@ -88,11 +89,13 @@ namespace sparky {
 			glfwSetKeyCallback(m_window,key_callback);
 			glfwSetMouseButtonCallback(m_window,mouse_button_callback);
 			glfwSetCursorPosCallback(m_window,cursor_pos_callback);
+#ifndef __EMSCRIPTEN__
 			if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 				std::cout << "Error: failed load GL extensions" << std::endl;
 				glfwTerminate();
 				return false;
 			}
+#endif
 
 			m_closed = false;
 
@@ -101,6 +104,7 @@ namespace sparky {
 
 		void Window::clear() const {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			CHECK_GL_STATUS();
 		}
 
 		void Window::close() {
@@ -108,8 +112,8 @@ namespace sparky {
 		}
 
 		void Window::update() {
-			GLenum status = glGetError();
-			if (status != GL_NO_ERROR) {
+			GLenum status;
+			while ((status = glGetError()) != GL_NO_ERROR) {
 				std::cout << "OpenGL Error: " << status << std::endl;
 			}
 
@@ -122,6 +126,7 @@ namespace sparky {
 			m_height = height;
 
 			glViewport(0,0,m_width,m_height);
+			CHECK_GL_STATUS();
 		}
 
 		void Window::keyEvent(int32_t key,int32_t scancode,int32_t action,int32_t mods) {

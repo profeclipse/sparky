@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <glad/glad.h>
+#include "sparky-gl.h"
 #include "graphics/Buffer.h"
 
 namespace sparky {
