@@ -6,7 +6,7 @@
 
 namespace sparky {
 	namespace graphics {
-		class Simple2DRenderer : public Renderer2D {
+		class SimpleRenderer2D : public Renderer2D {
 			private:
 				std::deque<const StaticSprite *> m_renderQueue;
 

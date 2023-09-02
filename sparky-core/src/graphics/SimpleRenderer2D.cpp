@@ -1,13 +1,13 @@
 #include "sparky-utils.h"
-#include "graphics/Simple2DRenderer.h"
+#include "graphics/SimpleRenderer2D.h"
 
 namespace sparky {
 	namespace graphics {
-		void Simple2DRenderer::submit(const Renderable2D* renderable) {
+		void SimpleRenderer2D::submit(const Renderable2D* renderable) {
 			m_renderQueue.push_back((StaticSprite*)renderable);
 		}
 
-		void Simple2DRenderer::flush() {
+		void SimpleRenderer2D::flush() {
 			while (!m_renderQueue.empty()) {
 				const StaticSprite* sprite = m_renderQueue.front();
 

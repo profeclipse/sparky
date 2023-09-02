@@ -46,7 +46,7 @@ int main(int,char *[]) {
 #if BATCH_RENDERER
 	BatchRenderer2D renderer;
 #else
-	Simple2DRenderer renderer;
+	SimpleRenderer2D renderer;
 #endif
 
 	std::vector<Renderable2D*> sprites;
