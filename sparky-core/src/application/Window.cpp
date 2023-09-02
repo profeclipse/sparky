@@ -89,6 +89,7 @@ namespace sparky {
 			glfwSetKeyCallback(m_window,key_callback);
 			glfwSetMouseButtonCallback(m_window,mouse_button_callback);
 			glfwSetCursorPosCallback(m_window,cursor_pos_callback);
+			glfwSwapInterval(0.0);
 #ifndef __EMSCRIPTEN__
 			if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 				std::cout << "Error: failed load GL extensions" << std::endl;

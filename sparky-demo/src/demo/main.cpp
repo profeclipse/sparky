@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <vector>
 #include <time.h>
+#include <fmt/format.h>
 #include "sparky-core.h"
 
 #define BATCH_RENDERER 1
@@ -17,6 +18,7 @@ int main(int,char *[]) {
 	using namespace application;
 	using namespace math;
 	using namespace graphics;
+	using namespace utils;
 
 #ifdef __EMSCRIPTEN__
 	std::string shaderDir = "res/shaders/es3/";
@@ -70,6 +72,10 @@ int main(int,char *[]) {
 
 	std::cout << "Sprite Count: " << sprites.size() << std::endl;
 
+	Timer timer;
+	float totalElapsed = 0.0;
+	uint16_t totalFrames = 0;
+
 	std::function<void()> mainloop = [&] {
 		window.clear();
 
@@ -85,6 +91,17 @@ int main(int,char *[]) {
 		renderer.flush();
 
 		window.update();
+
+		++totalFrames;
+		totalElapsed += timer.elapsed();
+		if (totalElapsed >= 1.0) {
+			uint16_t fps = (uint16_t)(totalFrames / totalElapsed);
+			std::cout << fmt::format("{} fps\n",fps);
+			totalElapsed = 0.0f;
+			totalFrames = 0;
+		}
+
+		timer.reset();
 	};
 
 #ifdef __EMSCRIPTEN__

@@ -18,6 +18,8 @@ if(NOT EMSCRIPTEN)
 add_compile_options(
 	${warnings}
 	$<$<CONFIG:RELEASE>:-Ofast>
+	#$<$<CONFIG:RELEASE>:-ffast-math>
+	#$<$<CONFIG:RELEASE>:-finline-functions>
 	$<$<CONFIG:DEBUG>:-g>
 )
 else()
