@@ -73,11 +73,16 @@ int main(int,char *[]) {
 	std::cout << "Sprite Count: " << sprites.size() << std::endl;
 
 	Timer timer;
-	float totalElapsed = 0.0;
+	float t = 0.0f;
 	uint16_t totalFrames = 0;
 
 	std::function<void()> mainloop = [&] {
 		window.clear();
+
+		mat4 mat = mat4::translate(vec3(5,5,5));
+		mat = mat * mat4::rotate(timer.elapsed()*50.0f,vec3(0,0,1));
+		mat = mat * mat4::translate(vec3(-5,-5,-5));
+		shader.setUniformMat4("ml_matrix",mat);
 
 		double x,y;
 		window.getMousePos(x,y);
@@ -93,15 +98,12 @@ int main(int,char *[]) {
 		window.update();
 
 		++totalFrames;
-		totalElapsed += timer.elapsed();
-		if (totalElapsed >= 1.0) {
-			uint16_t fps = (uint16_t)(totalFrames / totalElapsed);
+		if (timer.elapsed() - t >= 1.0) {
+			t += 1.0f;
+			uint16_t fps = totalFrames;
 			std::cout << fmt::format("{} fps\n",fps);
-			totalElapsed = 0.0f;
 			totalFrames = 0;
 		}
-
-		timer.reset();
 	};
 
 #ifdef __EMSCRIPTEN__
