@@ -98,19 +98,19 @@ namespace sparky {
 
 			uint32_t c = (a << 24) | (b << 16) | (g << 8) | r;
 
-			m_buffer->position	= pos;
+			m_buffer->position	= *m_transformBack * pos;
 			m_buffer->color		= c;
 			++m_buffer;
 
-			m_buffer->position	= math::vec3(pos.x,pos.y+size.y,pos.z);
+			m_buffer->position	= *m_transformBack * math::vec3(pos.x,pos.y+size.y,pos.z);
 			m_buffer->color		= c;
 			++m_buffer;
 
-			m_buffer->position	= math::vec3(pos.x+size.x,pos.y+size.y,pos.z);
+			m_buffer->position	= *m_transformBack * math::vec3(pos.x+size.x,pos.y+size.y,pos.z);
 			m_buffer->color		= c;
 			++m_buffer;
 
-			m_buffer->position	= math::vec3(pos.x+size.x,pos.y,pos.z);
+			m_buffer->position	= *m_transformBack * math::vec3(pos.x+size.x,pos.y,pos.z);
 			m_buffer->color		= c;
 			++m_buffer;
 

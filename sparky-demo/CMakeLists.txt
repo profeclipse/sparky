@@ -8,11 +8,13 @@ if(EMSCRIPTEN)
 	set(RESFILES
 		${PROJECT_SOURCE_DIR}/sparky-demo/src/res/shaders/es3/basic.vert
 		${PROJECT_SOURCE_DIR}/sparky-demo/src/res/shaders/es3/basic.frag
+		${PROJECT_SOURCE_DIR}/sparky-demo/src/res/shaders/es3/basicnl.frag
 		)
 else()
 	set(RESFILES
 		${PROJECT_SOURCE_DIR}/sparky-demo/src/res/shaders/gl33/basic.vert
 		${PROJECT_SOURCE_DIR}/sparky-demo/src/res/shaders/gl33/basic.frag
+		${PROJECT_SOURCE_DIR}/sparky-demo/src/res/shaders/gl33/basicnl.frag
 		)
 endif()
 

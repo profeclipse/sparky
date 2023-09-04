@@ -10,3 +10,4 @@
 #include "graphics/BatchRenderer2D.h"
 #include "graphics/StaticSprite.h"
 #include "graphics/Sprite.h"
+#include "graphics/Layer.h"

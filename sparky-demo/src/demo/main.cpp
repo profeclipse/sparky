@@ -6,7 +6,22 @@
 #include <fmt/format.h>
 #include "sparky-core.h"
 
+namespace sparky {
+	namespace graphics {
+		class TileLayer : public Layer {
+			public:
+				TileLayer(Shader *shader)
+					: Layer(new BatchRenderer2D(),shader,
+							math::mat4::orthographic(-16.0f,16.0f,-9.0f,9.0f,-1.0f,1.0f)) {
+				}
+
+				~TileLayer() {}
+		};
+	}
+}
+
 #define BATCH_RENDERER 1
+#define TEST_50K_SPRITES 0
 
 void dispatch_main(void* fp) {
 	std::function<void()>* func=(std::function<void()>*)fp;
@@ -28,49 +43,44 @@ int main(int,char *[]) {
 
 	std::string vertShaderPath = shaderDir + "basic.vert";
 	std::string fragShaderPath = shaderDir + "basic.frag";
+	std::string fragNoLightsShaderPath = shaderDir + "basicnl.frag";
 
 	Window window("Sparky Demo",960,960/16*9);
     glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	Shader shader(vertShaderPath.c_str(),fragShaderPath.c_str());
-	shader.bind();
+	Shader* shader1 = new Shader(vertShaderPath.c_str(),fragNoLightsShaderPath.c_str());
+	shader1->bind();
+	shader1->setUniformMat4("vw_matrix",mat4::identity());
+	shader1->setUniformMat4("ml_matrix",mat4::identity());
+	shader1->setUniformVec2("light_pos",vec2(12.0f,6.0f));
+	shader1->unbind();
 
-	mat4 ortho = mat4::orthographic(0.0f,16.0f,0.0f,9.0f,-1.0f,1.0f);
-	shader.setUniformMat4("pr_matrix",ortho);
-	shader.setUniformMat4("vw_matrix",mat4::identity());
-	shader.setUniformMat4("ml_matrix",mat4::identity());
-	shader.setUniformVec2("light_pos",vec2(4.0,1.5f));
-
-#if BATCH_RENDERER
-	BatchRenderer2D renderer;
-#else
-	SimpleRenderer2D renderer;
-#endif
-
-	std::vector<Renderable2D*> sprites;
+	Shader* shader2 = new Shader(vertShaderPath.c_str(),fragShaderPath.c_str());
+	shader2->bind();
+	shader2->setUniformMat4("vw_matrix",mat4::identity());
+	shader2->setUniformMat4("ml_matrix",mat4::identity());
+	shader2->setUniformVec2("light_pos",vec2(0.0f,0.0f));
+	shader2->unbind();
 
 	srand(time(nullptr));
 
-	float step = 0.05f;
-	for (float y=0.0f ; y<9.0f ; y+=step) {
-		for (float x=0.0f ; x<16.0f ; x+=step) {
-			sprites.push_back(new
-#if BATCH_RENDERER
-					Sprite
+	TileLayer layer1(shader1);
+#if TEST_50K_SPRITES
+	float step = 0.1f;
 #else
-					StaticSprite
+	float step = 1.0f;
 #endif
-					(x,y,step*0.9f,step*0.9f,vec4(rand() % 1000 / 1000.0f,0.0f,1.0f,1.0f)
-#if !BATCH_RENDERER
-						,shader
-#endif
-						));
+	for (float y=-9.0f ; y<9.0f ; y+=step) {
+		for (float x=-16.0f ; x<16.0f ; x+=step) {
+			layer1.add(new Sprite (x,y,step*0.98f,step*0.98f,
+						vec4(rand() % 1000 / 1000.0f,0.0f,1.0f,1.0f)));
 		}
 	}
 
-	std::cout << "Sprite Count: " << sprites.size() << std::endl;
+	TileLayer layer2(shader2);
+	layer2.add(new Sprite(-4,-3,8,6,vec4(0.0,0.3f,1.0f,1.0f)));
 
 	Timer timer;
 	float t = 0.0f;
@@ -79,22 +89,14 @@ int main(int,char *[]) {
 	std::function<void()> mainloop = [&] {
 		window.clear();
 
-		mat4 mat = mat4::translate(vec3(5,5,5));
-		mat = mat * mat4::rotate(timer.elapsed()*50.0f,vec3(0,0,1));
-		mat = mat * mat4::translate(vec3(-5,-5,-5));
-		shader.setUniformMat4("ml_matrix",mat);
-
 		double x,y;
 		window.getMousePos(x,y);
-		shader.setUniformVec2("light_pos",vec2((float)(x*16.0f/960.0f),(float)(9.0f-y*9.0f/540.0f)));
+		shader2->bind();
+		shader2->setUniformVec2("light_pos",vec2((float)(x*32.0f/960.0f-16.0f),(float)(9.0f-y*18.0f/540.0f)));
+		shader2->unbind();
 
-		renderer.begin();
-		for (size_t i=0 ; i<sprites.size() ; ++i) {
-			renderer.submit(sprites[i]);
-		}
-		renderer.end();
-		renderer.flush();
-
+		layer1.render();
+		layer2.render();
 		window.update();
 
 		++totalFrames;
