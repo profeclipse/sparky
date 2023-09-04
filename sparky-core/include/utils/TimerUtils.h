@@ -25,6 +25,10 @@ namespace sparky {
 					return (now - m_start) / m_freq;
 				}
 
+				double elapsedMillis() {
+					return elapsed() * 1000.0f;
+				}
+
 			private:
 				double ns() {
 					auto now = std::chrono::high_resolution_clock::now().time_since_epoch();
