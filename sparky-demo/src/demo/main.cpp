@@ -20,7 +20,6 @@ namespace sparky {
 	}
 }
 
-#define BATCH_RENDERER 1
 #define TEST_50K_SPRITES 0
 
 void dispatch_main(void* fp) {
