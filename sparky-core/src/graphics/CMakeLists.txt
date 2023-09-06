@@ -5,7 +5,6 @@ target_sources(
 	IndexBuffer.cpp
 	VertexArray.cpp
 	BatchRenderer2D.cpp
-	StaticSprite.cpp
 	Sprite.cpp
 	Layer.cpp
 	)
