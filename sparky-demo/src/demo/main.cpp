@@ -20,8 +20,6 @@ namespace sparky {
 	}
 }
 
-#define TEST_50K_SPRITES 0
-
 void dispatch_main(void* fp) {
 	std::function<void()>* func=(std::function<void()>*)fp;
 	(*func)();
@@ -49,37 +47,23 @@ int main(int,char *[]) {
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-	Shader* shader1 = new Shader(vertShaderPath.c_str(),fragNoLightsShaderPath.c_str());
-	shader1->bind();
-	shader1->setUniformMat4("vw_matrix",mat4::identity());
-	shader1->setUniformMat4("ml_matrix",mat4::identity());
-	shader1->setUniformVec2("light_pos",vec2(12.0f,6.0f));
-	shader1->unbind();
-
-	Shader* shader2 = new Shader(vertShaderPath.c_str(),fragShaderPath.c_str());
-	shader2->bind();
-	shader2->setUniformMat4("vw_matrix",mat4::identity());
-	shader2->setUniformMat4("ml_matrix",mat4::identity());
-	shader2->setUniformVec2("light_pos",vec2(0.0f,0.0f));
-	shader2->unbind();
+	Shader* shader = new Shader(vertShaderPath.c_str(),fragNoLightsShaderPath.c_str());
+	shader->bind();
+	shader->setUniformMat4("vw_matrix",mat4::identity());
+	shader->setUniformMat4("ml_matrix",mat4::identity());
+	shader->setUniformVec2("light_pos",vec2(12.0f,6.0f));
+	shader->unbind();
 
 	srand(time(nullptr));
 
-	TileLayer layer1(shader1);
-#if TEST_50K_SPRITES
-	float step = 0.1f;
-#else
-	float step = 1.0f;
-#endif
-	for (float y=-9.0f ; y<9.0f ; y+=step) {
-		for (float x=-16.0f ; x<16.0f ; x+=step) {
-			layer1.add(new Sprite (x,y,step*0.98f,step*0.98f,
-						vec4(rand() % 1000 / 1000.0f,0.0f,1.0f,1.0f)));
-		}
-	}
-
-	TileLayer layer2(shader2);
-	layer2.add(new Sprite(-4,-3,8,6,vec4(0.0,0.3f,1.0f,1.0f)));
+	TileLayer layer(shader);
+	Group *group = new Group(mat4::translate(vec3(-15.0f,5.0f,0.0f)));
+	group->add(new Sprite(0.0f,0.0f,6.0f,3.0f,vec4(1.0f,1.0f,1.0f,1.0f)));
+	Group *button = new Group(mat4::translate(vec3(0.1f,0.1f,0.0f)));
+	button->add(new Sprite(0.0f,0.0f,5.8f,2.8f,vec4(1.0f,0.0f,1.0f,1.0f)));
+	button->add(new Sprite(0.1f,0.1f,5.6f,2.6f,vec4(0.0f,0.3f,0.8f,1.0f)));
+	group->add(button);
+	layer.add(group);
 
 	Timer timer;
 	float t = 0.0f;
@@ -90,12 +74,8 @@ int main(int,char *[]) {
 
 		double x,y;
 		window.getMousePos(x,y);
-		shader2->bind();
-		shader2->setUniformVec2("light_pos",vec2((float)(x*32.0f/960.0f-16.0f),(float)(9.0f-y*18.0f/540.0f)));
-		shader2->unbind();
 
-		layer1.render();
-		layer2.render();
+		layer.render();
 		window.update();
 
 		++totalFrames;
