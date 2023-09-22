@@ -47,6 +47,7 @@ int main(int,char *[]) {
 
 	FontManager::add(new Font("SourceSansPro","res/fonts/SourceSansPro-Light.ttf",36));
 	FontManager::add(new Font("Consola","res/fonts/consola.ttf",28));
+	FontManager::add(new Font("SpaceGrotesk","res/fonts/SpaceGrotesk-Light.ttf",28));
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
