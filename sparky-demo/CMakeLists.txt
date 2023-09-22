@@ -25,12 +25,16 @@ target_sources(demo PUBLIC
 if(EMSCRIPTEN)
 	target_link_libraries(demo PUBLIC
 		sparky-core
-		fmt::fmt
+		FreeImage
+		freetype-gl
+		freetype
 	)
 else()
 	target_link_libraries(demo PUBLIC
 		sparky-core
-		fmt::fmt
+		FreeImage
+		freetype-gl
+		freetype
 		glfw
 		glad
 		${OPENGL_LIBRARIES}

@@ -7,4 +7,9 @@ target_sources(
 	BatchRenderer2D.cpp
 	Sprite.cpp
 	Layer.cpp
+	Group.cpp
+	Texture.cpp
+	Label.cpp
+	Font.cpp
+	FontManager.cpp
 	)

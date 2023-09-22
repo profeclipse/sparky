@@ -1,6 +1,7 @@
 #include <iostream>
 #include "sparky-gl.h"
 #include "sparky-utils.h"
+#include "graphics/FontManager.h"
 #include "application/Window.h"
 
 namespace sparky {
@@ -20,6 +21,7 @@ namespace sparky {
 		}
 
 		Window::~Window() {
+			graphics::FontManager::clean();
 			glfwTerminate();
 		}
 
@@ -97,6 +99,10 @@ namespace sparky {
 				return false;
 			}
 #endif
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+			FreeImage_Initialise();
 
 			m_closed = false;
 
@@ -104,8 +110,7 @@ namespace sparky {
 		}
 
 		void Window::clear() const {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			CHECK_GL_STATUS();
+			CHECK_GL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		}
 
 		void Window::close() {
@@ -126,8 +131,7 @@ namespace sparky {
 			m_width = width;
 			m_height = height;
 
-			glViewport(0,0,m_width,m_height);
-			CHECK_GL_STATUS();
+			CHECK_GL(glViewport(0,0,m_width,m_height));
 		}
 
 		void Window::keyEvent(int32_t key,int32_t scancode,int32_t action,int32_t mods) {

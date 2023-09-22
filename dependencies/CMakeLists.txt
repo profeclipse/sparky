@@ -1,0 +1,6 @@
+if(EMSCRIPTEN)
+	add_subdirectory(freetype-em)
+else()
+	add_subdirectory(freetype)
+endif()
+add_subdirectory(freetype-gl)

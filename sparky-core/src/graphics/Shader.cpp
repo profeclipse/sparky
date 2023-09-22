@@ -12,63 +12,54 @@ namespace sparky {
 		}
 
 		Shader::~Shader() {
-			glDeleteProgram(m_shaderId);
-			CHECK_GL_STATUS();
+			CHECK_GL(glDeleteProgram(m_shaderId));
 		}
 
 		GLint Shader::getUniformLocation(const GLchar* name) {
 			GLint result = glGetUniformLocation(m_shaderId,name);
-			CHECK_GL_STATUS();
 			return result;
 		}
 
 		void Shader::setUniform1f(const GLchar* name,float value) {
-			glUniform1f(getUniformLocation(name),value);
-			CHECK_GL_STATUS();
+			CHECK_GL(glUniform1f(getUniformLocation(name),value));
 		}
 
 		void Shader::setUniform1i(const GLchar* name,int value) {
-			glUniform1i(getUniformLocation(name),value);
-			CHECK_GL_STATUS();
+			CHECK_GL(glUniform1i(getUniformLocation(name),value));
+		}
+
+		void Shader::setUniform1iv(const GLchar* name,int *value,int count) {
+			CHECK_GL(glUniform1iv(getUniformLocation(name),count,value));
 		}
 
 		void Shader::setUniformVec2(const GLchar* name,const math::vec2& value) {
-			glUniform2f(getUniformLocation(name),value.x,value.y);
-			CHECK_GL_STATUS();
+			CHECK_GL(glUniform2f(getUniformLocation(name),value.x,value.y));
 		}
 
 		void Shader::setUniformVec3(const GLchar* name,const math::vec3& value) {
-			glUniform3f(getUniformLocation(name),value.x,value.y,value.z);
-			CHECK_GL_STATUS();
+			CHECK_GL(glUniform3f(getUniformLocation(name),value.x,value.y,value.z));
 		}
 
 		void Shader::setUniformVec4(const GLchar* name,const math::vec4& value) {
-			glUniform4f(getUniformLocation(name),value.x,value.y,value.z,value.w);
-			CHECK_GL_STATUS();
+			CHECK_GL(glUniform4f(getUniformLocation(name),value.x,value.y,value.z,value.w));
 		}
 
 		void Shader::setUniformMat4(const GLchar* name,const math::mat4& matrix) {
-			glUniformMatrix4fv(getUniformLocation(name),1,GL_FALSE,matrix.elements);
-			CHECK_GL_STATUS();
+			CHECK_GL(glUniformMatrix4fv(getUniformLocation(name),1,GL_FALSE,matrix.elements));
 		}
 
-		void Shader::bind() const {
-			glUseProgram(m_shaderId);
-			CHECK_GL_STATUS();
+		void Shader::enable() const {
+			CHECK_GL(glUseProgram(m_shaderId));
 		}
 
-		void Shader::unbind() const {
-			glUseProgram(0);
-			CHECK_GL_STATUS();
+		void Shader::disable() const {
+			CHECK_GL(glUseProgram(0));
 		}
 
 		GLuint Shader::load() {
-			GLuint program = glCreateProgram();
-			CHECK_GL_STATUS();
-			GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-			CHECK_GL_STATUS();
-			GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-			CHECK_GL_STATUS();
+			GLuint program = glCreateProgram(); CHECK_GL_STATUS();
+			GLuint vs = glCreateShader(GL_VERTEX_SHADER); CHECK_GL_STATUS();
+			GLuint fs = glCreateShader(GL_FRAGMENT_SHADER); CHECK_GL_STATUS();
 
 			std::string vstext = utils::read_file(m_vertPath);
 			std::string fstext = utils::read_file(m_fragPath);
@@ -76,15 +67,12 @@ namespace sparky {
 			const char* pvstext = vstext.c_str();
 			const char* pfstext = fstext.c_str();
 
-			glShaderSource(vs,1,&pvstext,NULL);
-			CHECK_GL_STATUS();
-			glShaderSource(fs,1,&pfstext,NULL);
-			CHECK_GL_STATUS();
+			CHECK_GL(glShaderSource(vs,1,&pvstext,NULL));
+			CHECK_GL(glShaderSource(fs,1,&pfstext,NULL));
 
 			GLint result;
 
 			glCompileShader(vs);
-			CHECK_GL_STATUS();
 			glGetShaderiv(vs,GL_COMPILE_STATUS,&result);
 			if (result == GL_FALSE) {
 				GLint length;
@@ -93,15 +81,14 @@ namespace sparky {
 				glGetShaderInfoLog(vs,length,&length,&error[0]);
 				std::cout << "Failed to compile " << m_vertPath << std::endl;
 				std::cout << &error[0] << std::endl;
-				glDeleteShader(fs);
-				glDeleteShader(vs);
-				glDeleteProgram(program);
+				CHECK_GL(glDeleteShader(fs));
+				CHECK_GL(glDeleteShader(vs));
+				CHECK_GL(glDeleteProgram(program));
 
 				return 0;
 			}
 
 			glCompileShader(fs);
-			CHECK_GL_STATUS();
 			glGetShaderiv(fs,GL_COMPILE_STATUS,&result);
 			if (result == GL_FALSE) {
 				GLint length;
@@ -110,26 +97,20 @@ namespace sparky {
 				glGetShaderInfoLog(fs,length,&length,&error[0]);
 				std::cout << "Failed to compile " << m_fragPath << std::endl;
 				std::cout << &error[0] << std::endl;
-				glDeleteShader(fs);
-				glDeleteShader(vs);
-				glDeleteProgram(program);
+				CHECK_GL(glDeleteShader(fs));
+				CHECK_GL(glDeleteShader(vs));
+				CHECK_GL(glDeleteProgram(program));
 
 				return 0;
 			}
 
-			glAttachShader(program,vs);
-			CHECK_GL_STATUS();
-			glAttachShader(program,fs);
-			CHECK_GL_STATUS();
-			glLinkProgram(program);
-			CHECK_GL_STATUS();
-			glValidateProgram(program);
-			CHECK_GL_STATUS();
+			CHECK_GL(glAttachShader(program,vs));
+			CHECK_GL(glAttachShader(program,fs));
+			CHECK_GL(glLinkProgram(program));
+			CHECK_GL(glValidateProgram(program));
 
-			glDeleteShader(fs);
-			CHECK_GL_STATUS();
-			glDeleteShader(vs);
-			CHECK_GL_STATUS();
+			CHECK_GL(glDeleteShader(fs));
+			CHECK_GL(glDeleteShader(vs));
 
 			return program;
 		}

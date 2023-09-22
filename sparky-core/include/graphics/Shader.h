@@ -17,13 +17,14 @@ namespace sparky {
 
 				void setUniform1f(const GLchar* name,float value);
 				void setUniform1i(const GLchar* name,int value);
+				void setUniform1iv(const GLchar* name,int *value,int count);
 				void setUniformVec2(const GLchar* name,const math::vec2& value);
 				void setUniformVec3(const GLchar* name,const math::vec3& value);
 				void setUniformVec4(const GLchar* name,const math::vec4& value);
 				void setUniformMat4(const GLchar* name,const math::mat4& matrix);
 
-				void bind() const;
-				void unbind() const;
+				void enable() const;
+				void disable() const;
 
 			private:
 				GLuint load();
