@@ -22,7 +22,7 @@ namespace sparky {
 				~Window();
 				void clear() const;
 				void update();
-				void resize(int32_t width,int32_t height);
+				void framebuffer_resize(int32_t width,int32_t height);
 				void close();
 				void keyEvent(int32_t key,int32_t scancode,int32_t action,int32_t mods);
 				void mouseButtonEvent(int32_t button,int32_t action,int32_t mods);

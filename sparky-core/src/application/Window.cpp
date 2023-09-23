@@ -25,10 +25,10 @@ namespace sparky {
 			glfwTerminate();
 		}
 
-		static void window_resize_callback(GLFWwindow* window,int32_t width,int32_t height) {
+		static void framebuffer_resize_callback(GLFWwindow* window,int32_t width,int32_t height) {
 			Window* w = (Window*)glfwGetWindowUserPointer(window);
 
-			w->resize(width,height);
+			w->framebuffer_resize(width,height);
 		}
 
 		static void window_close_callback(GLFWwindow* window) {
@@ -86,7 +86,7 @@ namespace sparky {
 			glfwMakeContextCurrent(m_window);
 			glfwSetWindowUserPointer(m_window,this);
 			glfwGetCursorPos(m_window,&m_mouseX,&m_mouseY);
-			glfwSetWindowSizeCallback(m_window,window_resize_callback);
+			glfwSetFramebufferSizeCallback(m_window,framebuffer_resize_callback);
 			glfwSetWindowCloseCallback(m_window,window_close_callback);
 			glfwSetKeyCallback(m_window,key_callback);
 			glfwSetMouseButtonCallback(m_window,mouse_button_callback);
@@ -127,7 +127,7 @@ namespace sparky {
 			glfwSwapBuffers(m_window);
 		}
 
-		void Window::resize(int32_t width,int32_t height) {
+		void Window::framebuffer_resize(int32_t width,int32_t height) {
 			m_width = width;
 			m_height = height;
 
