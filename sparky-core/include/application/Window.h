@@ -13,8 +13,10 @@ namespace sparky {
 				int32_t		m_width,m_height;
 				GLFWwindow	*m_window;
 				bool		m_closed;
-				bool		m_keys[MAX_KEYS];
-				bool		m_mouseButtons[MAX_BUTTONS];
+				bool		m_keyState[MAX_KEYS];
+				bool		m_oldKeyState[MAX_KEYS];
+				bool		m_mouseButtonState[MAX_BUTTONS];
+				bool		m_oldMouseButtonState[MAX_BUTTONS];
 				double		m_mouseX,m_mouseY;
 
 			public:
@@ -31,8 +33,12 @@ namespace sparky {
 				bool isClosed() const						{ return m_closed; }
 				int32_t getWidth() const					{ return m_width; }
 				int32_t getHeight() const					{ return m_height; }
-				bool isKeyPressed(int32_t key) const;
-				bool isMouseButtonPressed(int32_t button) const;
+				bool isKeyDown(int32_t key) const;
+				bool wasKeyDown(int32_t key) const;
+				bool wasKeyClicked(int32_t key) const;
+				bool isMouseButtonDown(int32_t button) const;
+				bool wasMouseButtonDown(int32_t button) const;
+				bool wasMouseButtonClicked(int32_t button) const;
 				double getMouseX() const	{ return m_mouseX; }
 				double getMouseY() const	{ return m_mouseY; }
 				void getMousePos(double& x,double& y) const {

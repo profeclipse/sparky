@@ -12,6 +12,7 @@ namespace sparky {
 			
 			public:
 				Group(const math::mat4& transformation);
+				~Group();
 
 				void add(Renderable2D* child);
 				void submit(Renderer2D* renderer) const override;

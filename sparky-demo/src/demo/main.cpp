@@ -52,7 +52,6 @@ int main(int,char *[]) {
 	FontManager::add(new Font("SpaceGrotesk","res/fonts/SpaceGrotesk-Light.ttf",28));
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
-	std::cout << "Font scale: " << FontManager::getScale() << std::endl;
 
 #if DEMO_LIGHTING
 	Shader* imageShader = new Shader(vertShaderPath.c_str(),fragLightShaderPath.c_str());
@@ -84,8 +83,7 @@ int main(int,char *[]) {
 	TileLayer guiLayer(guiShader);
 
 	Group *guiGroup = new Group(math::mat4::translate(math::vec3(5.0f,500.0f,0.0f)));
-	Sprite *fpsPanel = new Sprite(0.0f,0.0f,150.0f,32.0f,math::vec4(1.0f,1.0f,1.0f,0.2f));
-	guiGroup->add(fpsPanel);
+	guiGroup->add(new Sprite(0.0f,0.0f,150.0f,32.0f,math::vec4(1.0f,1.0f,1.0f,0.2f)));
 	Label *fps = new Label("",5.0f,8.0f,FontManager::get("Consola"),math::vec4(0.0f,1.0f,0.0f,0.4f));
 	guiGroup->add(fps);
 	guiLayer.add(guiGroup);
@@ -107,8 +105,12 @@ int main(int,char *[]) {
 
 		layer.render();
 		guiLayer.render();
-		window.update();
 
+		if (window.wasKeyClicked(GLFW_KEY_K)) {
+			std::cout << "K" << std::endl;
+		}
+
+		window.update();
 		++totalFrames;
 		if (timer.elapsed() - t >= 1.0) {
 			t += 1.0f;
@@ -124,4 +126,6 @@ int main(int,char *[]) {
 		dispatch_main(&mainloop);
     }
 #endif
+
+	return 0;
 }

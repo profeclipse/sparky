@@ -6,6 +6,13 @@ namespace sparky {
 			: m_transformation(transformation) {
 		}
 
+		Group::~Group() {
+			for (const Renderable2D* child : m_children) {
+				delete child;
+			}
+			m_children.clear();
+		}
+
 		void Group::add(Renderable2D* child) {
 			m_children.push_back(child);
 		}

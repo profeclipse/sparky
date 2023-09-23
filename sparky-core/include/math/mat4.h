@@ -27,6 +27,8 @@ namespace sparky {
 			vec3 multiply(const vec3& other) const;
 			vec4 multiply(const vec4& other) const;
 
+			mat4& invert();
+
 			static mat4 orthographic(float left,float right,float bottom,float top,
 					float near,float far);
 			static mat4 perspective(float fov,float aspect,float near,float far);

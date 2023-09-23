@@ -40,7 +40,7 @@ namespace sparky {
 			m_renderer->end();
 
 			m_renderer->flush();
-			//m_shader->disable();
+			m_shader->disable();
 		}
 	}
 }

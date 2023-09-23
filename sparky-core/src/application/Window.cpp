@@ -12,12 +12,10 @@ namespace sparky {
 				glfwTerminate();
 			}
 
-			for (int32_t i=0 ; i<MAX_KEYS ; ++i) {
-				m_keys[i] = false;
-			}
-			for (int32_t i=0 ; i<MAX_BUTTONS ; ++i) {
-				m_mouseButtons[i] = false;
-			}
+			memset(m_keyState,0,sizeof(m_keyState));
+			memset(m_oldKeyState,0,sizeof(m_oldKeyState));
+			memset(m_mouseButtonState,0,sizeof(m_mouseButtonState));
+			memset(m_oldMouseButtonState,0,sizeof(m_oldMouseButtonState));
 		}
 
 		Window::~Window() {
@@ -57,14 +55,35 @@ namespace sparky {
 			w->cursorPosEvent(x,y);
 		}
 
-		bool Window::isKeyPressed(int32_t key) const {
+		bool Window::isKeyDown(int32_t key) const {
 			// TODO: log key out of range
-			return (key < MAX_KEYS) ? m_keys[key] : false;
+			return (key < MAX_KEYS) ? m_keyState[key] : false;
 		}
 
-		bool Window::isMouseButtonPressed(int32_t button) const {
+		bool Window::wasKeyDown(int32_t key) const {
+			// TODO: log key out of range
+			return (key < MAX_KEYS) ? m_oldKeyState[key] : false;
+		}
+
+
+		bool Window::wasKeyClicked(int32_t key) const {
+			// TODO: log key out of range
+			return (wasKeyDown(key) && !isKeyDown(key));
+		}
+
+		bool Window::isMouseButtonDown(int32_t button) const {
 			// TODO: log button out of range
-			return (button < MAX_BUTTONS) ? m_mouseButtons[button] : false;
+			return (button < MAX_BUTTONS) ? m_mouseButtonState[button] : false;
+		}
+
+		bool Window::wasMouseButtonDown(int32_t button) const {
+			// TODO: log button out of range
+			return (button < MAX_BUTTONS) ? m_oldMouseButtonState[button] : false;
+		}
+
+		bool Window::wasMouseButtonClicked(int32_t button) const {
+			// TODO: log button out of range
+			return (wasMouseButtonDown(button) && !isMouseButtonDown(button));
 		}
 
 		bool Window::init() {
@@ -123,6 +142,9 @@ namespace sparky {
 				std::cout << "OpenGL Error: " << status << std::endl;
 			}
 
+			memcpy(m_oldKeyState,m_keyState,sizeof(m_oldKeyState));
+			memcpy(m_oldMouseButtonState,m_mouseButtonState,sizeof(m_oldMouseButtonState));
+
 			glfwPollEvents();
 			glfwSwapBuffers(m_window);
 		}
@@ -135,11 +157,13 @@ namespace sparky {
 		}
 
 		void Window::keyEvent(int32_t key,int32_t scancode,int32_t action,int32_t mods) {
-			m_keys[key] = (action != GLFW_RELEASE);
+			if (action == GLFW_PRESS || action == GLFW_RELEASE)
+				m_keyState[key] = (action == GLFW_PRESS);
 		}
 
 		void Window::mouseButtonEvent(int32_t button,int32_t action,int32_t mods) {
-			m_mouseButtons[button] = (action != GLFW_RELEASE);
+			if (action == GLFW_PRESS || action == GLFW_RELEASE)
+				m_mouseButtonState[button] = (action == GLFW_PRESS);
 		}
 
 		void Window::cursorPosEvent(double x,double y) {
