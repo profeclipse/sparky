@@ -19,6 +19,7 @@ namespace sparky {
 				Font(std::string name, std::string filename, uint16_t size);
 
 				void setScale(float x, float y);
+				void setScale(const math::vec2& scale);
 
 				ftgl::texture_font_t* getFTFont() const	{ return m_ftFont; }
 

@@ -45,11 +45,14 @@ int main(int,char *[]) {
 	Window window("Sparky Demo",960,960/16*9);
     glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
+	FontManager::setScale(960.0f/(float)window.getWidth(),540.0f/(float)window.getHeight());
+
 	FontManager::add(new Font("SourceSansPro","res/fonts/SourceSansPro-Light.ttf",36));
 	FontManager::add(new Font("Consola","res/fonts/consola.ttf",28));
 	FontManager::add(new Font("SpaceGrotesk","res/fonts/SpaceGrotesk-Light.ttf",28));
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
+	std::cout << "Font scale: " << FontManager::getScale() << std::endl;
 
 #if DEMO_LIGHTING
 	Shader* imageShader = new Shader(vertShaderPath.c_str(),fragLightShaderPath.c_str());

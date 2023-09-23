@@ -103,7 +103,7 @@ namespace sparky {
 			glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 			FreeImage_Initialise();
-
+			
 			m_closed = false;
 
 			return true;
