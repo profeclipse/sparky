@@ -106,15 +106,12 @@ int main(int,char *[]) {
 		layer.render();
 		guiLayer.render();
 
-		if (window.wasKeyClicked(GLFW_KEY_K)) {
-			std::cout << "K" << std::endl;
-		}
-
 		window.update();
 		++totalFrames;
 		if (timer.elapsed() - t >= 1.0) {
 			t += 1.0f;
 			fps->setText(std::to_string(totalFrames) + " fps");
+			std::cout << fps->getText() << std::endl;
 			totalFrames = 0;
 		}
 	};

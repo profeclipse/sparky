@@ -18,6 +18,7 @@ namespace sparky {
 				Label(std::string text,float x,float y,Font* font,math::vec4 color);
 
 				void setText(const std::string& text)		{ m_text = text; }
+				const std::string& getText() const			{ return m_text; }
 
 				void submit(Renderer2D* renderer) const override;
 		};

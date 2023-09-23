@@ -13,6 +13,11 @@ namespace sparky {
 				std::cout << "texture_font_new_from_file failed" << std::endl;
 		}
 
+		Font::~Font() {
+			ftgl::texture_font_delete(m_ftFont);
+			ftgl::texture_atlas_delete(m_ftAtlas);
+		}
+
 		void Font::setScale(float x, float y)
 		{
 			m_scale = math::vec2(x, y);

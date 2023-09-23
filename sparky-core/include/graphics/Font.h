@@ -17,6 +17,7 @@ namespace sparky {
 
 			public:
 				Font(std::string name, std::string filename, uint16_t size);
+				~Font();
 
 				void setScale(float x, float y);
 				void setScale(const math::vec2& scale);
