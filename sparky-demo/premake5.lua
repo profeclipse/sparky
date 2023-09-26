@@ -22,17 +22,23 @@ project "sparky-demo"
 			"%{IncludeDir.freetype}",
 			"%{IncludeDir.glad}",
 			"%{IncludeDir.glfw}"
+--			"%{wks.location}/../build/_deps/glfw-src/include"
 		}
+
+--		libdirs {
+--			"../build/_deps/glfw-build/src"
+--		}
 
 		links {
 			"freeimage",
 			"freetype-gl",
 			"freetype",
-			"glfw",
-			"glad"
+			"glad",
+			"glfw3"
 		}
 
 		linkoptions {
+--			"-lglfw3",
 			"-framework OpenGL",
 			"-framework Cocoa",
 			"-framework IOKit",
@@ -55,7 +61,6 @@ project "sparky-demo"
 		targetextension ".html"
 
 		linkoptions {
-			-- "--preload-file ${PROJECT_SOURCE_DIR}/sparky-demo/src/res@res",
 			"--preload-file %{wks.location}/../sparky-demo/src/res@res",
 			"-sUSE_GLFW=3",
 			"-sMAX_WEBGL_VERSION=2",
@@ -68,9 +73,7 @@ project "sparky-demo"
 		links {
 			"freeimage",
 			"freetype-gl",
-			"freetype-em",
-			"glfw",
-			"glad"
+			"freetype-em"
 		}
 	
 	filter {}
