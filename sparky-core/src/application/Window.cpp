@@ -19,7 +19,7 @@ namespace sparky {
 		}
 
 		Window::~Window() {
-			graphics::FontManager::clean();
+			graphics::FontManager::clear();
 			glfwTerminate();
 		}
 

@@ -1,3 +1,4 @@
+#include "graphics/FontManager.h"
 #include "graphics/Label.h"
 
 namespace sparky {
@@ -6,9 +7,16 @@ namespace sparky {
 			: Renderable2D(math::vec3(x,y,0.0f),math::vec2(0.0f,0.0f),color),
 				m_text(text),m_font(font) {
 		}
-		Label::Label(std::string text,float x,float y,Font* font,math::vec4 color) 
+
+		Label::Label(std::string text,float x,float y,const std::string& font,uint32_t color) 
 			: Renderable2D(math::vec3(x,y,0.0f),math::vec2(0.0f,0.0f),color),
-				m_text(text),m_font(font) {
+				m_text(text),m_font(FontManager::get(font)) {
+		}
+
+		Label::Label(std::string text,float x,float y,const std::string& font,uint16_t size,
+				uint32_t color) 
+			: Renderable2D(math::vec3(x,y,0.0f),math::vec2(0.0f,0.0f),color),
+				m_text(text),m_font(FontManager::get(font,size)) {
 		}
 
 		void Label::submit(Renderer2D* renderer) const {

@@ -5,7 +5,7 @@
 #include <time.h>
 #include "sparky-core.h"
 
-#define DEMO_LIGHTING 1
+#define DEMO_LIGHTING 0
 
 namespace sparky {
 	namespace graphics {
@@ -83,8 +83,8 @@ int main(int,char *[]) {
 	TileLayer guiLayer(guiShader);
 
 	Group *guiGroup = new Group(math::mat4::translate(math::vec3(5.0f,500.0f,0.0f)));
-	guiGroup->add(new Sprite(0.0f,0.0f,150.0f,32.0f,math::vec4(1.0f,1.0f,1.0f,0.2f)));
-	Label *fps = new Label("",5.0f,8.0f,FontManager::get("Consola"),math::vec4(0.0f,1.0f,0.0f,0.4f));
+	guiGroup->add(new Sprite(0.0f,0.0f,150.0f,32.0f,0x42FFFFFF));
+	Label *fps = new Label("",5.0f,8.0f,"Consola",0x7000FF00);
 	guiGroup->add(fps);
 	guiLayer.add(guiGroup);
 

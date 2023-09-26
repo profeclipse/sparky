@@ -17,7 +17,7 @@ namespace sparky {
 				static void setScale(const math::vec2& scale);
 				static void setScale(float x,float y);
 				static const math::vec2& getScale();
-				static void clean();
+				static void clear();
 			private:
 				FontManager()		{}
 		};

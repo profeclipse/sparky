@@ -44,7 +44,7 @@ namespace sparky {
 			return s_scale;
 		}
 
-		void FontManager::clean() {
+		void FontManager::clear() {
 			for (size_t i=0 ; i<s_fonts.size() ; ++i) {
 				delete s_fonts[i];
 			}
