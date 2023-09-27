@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# determine the project directory based on the location of this script
+SCRIPTDIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+PROJDIR="$(dirname "${SCRIPTDIR}")"
+
+function findexe {
+	exe=$1
+
+	printf "Searching for ${exe}..."
+	for dir in $(echo ${PATH} | sed 's/:/\n/g')
+	do
+		if [ -x "${dir}/${exe}" ]
+		then
+			printf " found at ${dir}\n"
+			return 0
+		fi
+	done
+
+	printf " not found!\n"
+	return 1
+}
+
+findexe premake5 || exit 1
+findexe emmake   || exit 1
+
+cd "${PROJDIR}"
+premake5 gmake2
+
+exit 0

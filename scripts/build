@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# determine the project directory based on the location of this script
+MYSELF="$(basename -- "${BASH_SOURCE[0]}")"
+SCRIPTDIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+PROJDIR="$(dirname "${SCRIPTDIR}")"
+
+# update build system just in case
+cd "${PROJDIR}"
+#premake5 gmake2 || exit 1
+
+cd "${PROJDIR}/build"
+
+platform=web
+config=release
+
+function usage {
+	printf "usage: %s [-c release|debug] [-p mac|web]\n" "${MYSELF}"
+	exit 1
+}
+
+while getopts "c:p:" option
+do
+	case "${option}" in
+		c)
+			config="${OPTARG}"
+			if [ "${config}" != "release" -a "${config}" != "debug" ]
+			then
+				usage
+			fi
+			;;
+		p)
+			platform="${OPTARG}"
+			if [ "${platform}" != "mac" -a "${platform}" != "web" ]
+			then
+				usage
+			fi
+			;;
+		*)
+			usage
+			;;
+	esac
+done
+
+mkconfig="${config}_${platform}"
+
+if [ "${platform}" == "web" ]
+then
+	cmd="emmake make"
+else
+	cmd="make"
+fi
+
+${cmd} -j4 config=${mkconfig}
