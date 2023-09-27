@@ -22,12 +22,7 @@ project "sparky-demo"
 			"%{IncludeDir.freetype}",
 			"%{IncludeDir.glad}",
 			"%{IncludeDir.glfw}"
---			"%{wks.location}/../build/_deps/glfw-src/include"
 		}
-
---		libdirs {
---			"../build/_deps/glfw-build/src"
---		}
 
 		links {
 			"freeimage",
@@ -38,7 +33,6 @@ project "sparky-demo"
 		}
 
 		linkoptions {
---			"-lglfw3",
 			"-framework OpenGL",
 			"-framework Cocoa",
 			"-framework IOKit",

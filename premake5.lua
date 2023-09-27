@@ -7,7 +7,7 @@ workspace "sparky"
 	platforms { "web", "mac" }
 	location "pmbuild"
 
-	outputdir = "%{cfg.platform}-%{cfg.buildcfg}"
+	outputdir = "%{cfg.buildcfg}-%{cfg.platform}"
 
 	include "dependencies/freeimage"
 	include "dependencies/freetype"
