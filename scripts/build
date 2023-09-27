@@ -41,6 +41,7 @@ do
 			;;
 	esac
 done
+shift $(($OPTIND - 1))
 
 mkconfig="${config}_${platform}"
 
@@ -51,4 +52,4 @@ else
 	cmd="make"
 fi
 
-${cmd} -j4 config=${mkconfig}
+${cmd} -j4 config=${mkconfig} $@
