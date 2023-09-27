@@ -5,7 +5,7 @@ include "dependencies.lua"
 workspace "sparky"
 	configurations { "release", "debug" }
 	platforms { "web", "mac" }
-	location "pmbuild"
+	location "build"
 
 	outputdir = "%{cfg.buildcfg}-%{cfg.platform}"
 
