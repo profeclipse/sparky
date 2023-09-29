@@ -11,11 +11,11 @@ cd "${PROJDIR}"
 
 cd "${PROJDIR}/build"
 
-platform=web
-config=release
+platforms=all
+configs=release
 
 function usage {
-	printf "usage: %s [-c release|debug] [-p mac|web]\n" "${MYSELF}"
+	printf "usage: %s [-c release|debug|all] [-p mac|web|all]\n" "${MYSELF}"
 	exit 1
 }
 
@@ -23,15 +23,15 @@ while getopts "c:p:" option
 do
 	case "${option}" in
 		c)
-			config="${OPTARG}"
-			if [ "${config}" != "release" -a "${config}" != "debug" ]
+			configs="${OPTARG}"
+			if [ "${configs}" != "release" -a "${configs}" != "debug" -a "${configs}" != "all"]
 			then
 				usage
 			fi
 			;;
 		p)
-			platform="${OPTARG}"
-			if [ "${platform}" != "mac" -a "${platform}" != "web" ]
+			platforms="${OPTARG}"
+			if [ "${platforms}" != "mac" -a "${platforms}" != "web" -a "${platforms}" != "all"]
 			then
 				usage
 			fi
@@ -43,13 +43,35 @@ do
 done
 shift $(($OPTIND - 1))
 
-mkconfig="${config}_${platform}"
-
-if [ "${platform}" == "web" ]
+if [ "${configs}" == "all" ]
 then
-	cmd="emmake make"
-else
-	cmd="make"
+	configs="release debug"
+fi
+if [ "${platforms}" == "all" ]
+then
+	platforms="web mac"
 fi
 
-${cmd} -j config=${mkconfig} $@
+for platform in ${platforms}
+do
+	echo "building platform ${platform}..."
+	if [ "${platform}" == "web" ]
+	then
+		cmd="emmake make"
+	else
+		cmd="make"
+	fi
+
+	for config in ${configs}
+	do
+		echo "    building configuration ${config}..."
+		mkconfig="${config}_${platform}"
+
+		${cmd} -j config=${mkconfig} $@
+		ret=$?
+		if [ ${ret} -ne 0 ]
+		then
+			exit ${ret}
+		fi
+	done
+done
