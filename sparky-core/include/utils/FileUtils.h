@@ -2,7 +2,5 @@
 #include <string>
 
 namespace sparky {
-	namespace utils {
-		std::string read_file(const char* filepath);
-	}
+	std::string read_file(const char* filepath);
 }

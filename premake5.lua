@@ -15,6 +15,7 @@ workspace "sparky"
 	include "dependencies/glad"
 	include "dependencies/glfw"
 	include "dependencies/freetype-gl"
+	include "dependencies/spdlog"
 
 	include "sparky-core"
 	

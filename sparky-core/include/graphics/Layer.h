@@ -7,21 +7,19 @@
 #include "graphics/Shader.h"
 
 namespace sparky {
-	namespace graphics {
-		class Layer {
-			protected:
-				Renderer2D* m_renderer;
-				std::vector<Renderable2D*> m_objects;
-				Shader* m_shader;
-				math::mat4 m_projectionMatrix;
-			protected:
-				Layer(Renderer2D* renderer,Shader* shader,math::mat4 projectionMatrix);
-			public:
-				virtual ~Layer();
-				virtual void add(Renderable2D* object);
-				virtual void render();
+	class Layer {
+		protected:
+			Renderer2D* m_renderer;
+			std::vector<Renderable2D*> m_objects;
+			Shader* m_shader;
+			mat4 m_projectionMatrix;
+		protected:
+			Layer(Renderer2D* renderer,Shader* shader,mat4 projectionMatrix);
+		public:
+			virtual ~Layer();
+			virtual void add(Renderable2D* object);
+			virtual void render();
 
-				const std::vector<Renderable2D*>& getObjects() const	{ return m_objects; }
-		};
-	}
+			const std::vector<Renderable2D*>& getObjects() const	{ return m_objects; }
+	};
 }

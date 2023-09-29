@@ -2,9 +2,8 @@
 #include "graphics/BatchRenderer2D.h"
 
 namespace sparky {
-	namespace graphics {
-		Layer::Layer(Renderer2D* renderer,Shader* shader,math::mat4 projectionMatrix) 
-				: m_renderer(renderer),m_shader(shader),m_projectionMatrix(projectionMatrix) {
+	Layer::Layer(Renderer2D* renderer,Shader* shader,mat4 projectionMatrix) 
+		: m_renderer(renderer),m_shader(shader),m_projectionMatrix(projectionMatrix) {
 			m_shader->enable();
 
 			m_shader->setUniformMat4("pr_matrix",m_projectionMatrix);
@@ -18,29 +17,28 @@ namespace sparky {
 			m_shader->disable();
 		}
 
-		Layer::~Layer() {
-			delete m_shader;
-			delete m_renderer;
-			for (size_t i=0 ; i<m_objects.size() ; ++i) {
-				delete m_objects[i];
-			}
+	Layer::~Layer() {
+		delete m_shader;
+		delete m_renderer;
+		for (size_t i=0 ; i<m_objects.size() ; ++i) {
+			delete m_objects[i];
 		}
+	}
 
-		void Layer::add(Renderable2D* object) {
-			m_objects.push_back(object);
+	void Layer::add(Renderable2D* object) {
+		m_objects.push_back(object);
+	}
+
+	void Layer::render() {
+		m_shader->enable();
+
+		m_renderer->begin();
+		for (const Renderable2D* object : m_objects) {
+			object->submit(m_renderer);
 		}
+		m_renderer->end();
 
-		void Layer::render() {
-			m_shader->enable();
-
-			m_renderer->begin();
-			for (const Renderable2D* object : m_objects) {
-				object->submit(m_renderer);
-			}
-			m_renderer->end();
-
-			m_renderer->flush();
-			m_shader->disable();
-		}
+		m_renderer->flush();
+		m_shader->disable();
 	}
 }

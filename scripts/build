@@ -52,4 +52,4 @@ else
 	cmd="make"
 fi
 
-${cmd} -j4 config=${mkconfig} $@
+${cmd} -j config=${mkconfig} $@

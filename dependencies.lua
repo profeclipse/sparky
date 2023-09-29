@@ -10,3 +10,4 @@ IncludeDir["freetype_em"]	= "%{wks.location}/../dependencies/freetype-em/include
 IncludeDir["freetype_gl"]	= "%{wks.location}/../dependencies/freetype-gl"
 IncludeDir["glad"]			= "%{wks.location}/../dependencies/glad/include"
 IncludeDir["glfw"]			= "%{wks.location}/../dependencies/glfw/include"
+IncludeDir["spdlog"]		= "%{wks.location}/../dependencies/spdlog/include"

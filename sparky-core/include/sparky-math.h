@@ -8,10 +8,8 @@
 #include <math/mat4.h>
 
 namespace sparky {
-	namespace math {
-		inline float toRadians(float degrees) {
-			return degrees * M_PI / 180.0f;
-		}
+	inline float toRadians(float degrees) {
+		return degrees * M_PI / 180.0f;
 	}
 }
 

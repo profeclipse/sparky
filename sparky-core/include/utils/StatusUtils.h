@@ -9,7 +9,5 @@
 #endif
 
 namespace sparky {
-	namespace utils {
-		void check_gl_status(const char* file,int line);
-	}
+	void check_gl_status(const char* file,int line);
 }

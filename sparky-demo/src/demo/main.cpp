@@ -3,22 +3,23 @@
 #include <cstddef>
 #include <vector>
 #include <time.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/fmt/ostr.h>
 #include "sparky-core.h"
 
 #define DEMO_LIGHTING 0
 
 namespace sparky {
-	namespace graphics {
-		class TileLayer : public Layer {
-			public:
-				TileLayer(Shader *shader)
-					: Layer(new BatchRenderer2D(),shader,
-							math::mat4::orthographic(0.0f,960.0f,0.0f,540.0f,-1.0f,1.0f)) {
+	class TileLayer : public Layer {
+		public:
+			TileLayer(Shader *shader)
+				: Layer(new BatchRenderer2D(),shader,
+						mat4::orthographic(0.0f,960.0f,0.0f,540.0f,-1.0f,1.0f)) {
 				}
 
-				~TileLayer() {}
-		};
-	}
+			~TileLayer() {}
+	};
 }
 
 void dispatch_main(void* fp) {
@@ -28,9 +29,15 @@ void dispatch_main(void* fp) {
 
 int main(int,char *[]) {
 	using namespace sparky;
-	using namespace application;
-	using namespace graphics;
-	using namespace utils;
+
+	auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+	sink->set_pattern("%^[%T] %n: %v%$");
+	auto logger = std::make_shared<spdlog::logger>("Sparky",sink);
+	spdlog::register_logger(logger);
+	logger->set_level(spdlog::level::trace);
+	logger->flush_on(spdlog::level::trace);
+
+	logger->trace("Hello, World!");
 
 #ifdef __EMSCRIPTEN__
 	std::string shaderDir = "res/shaders/es3/";
@@ -43,7 +50,7 @@ int main(int,char *[]) {
 	std::string fragNoLightShaderPath = shaderDir + "basicnl.frag";
 
 	Window window("Sparky Demo",960,960/16*9);
-    glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+	glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	FontManager::setScale(960.0f/(float)window.getWidth(),540.0f/(float)window.getHeight());
 
@@ -51,7 +58,8 @@ int main(int,char *[]) {
 	FontManager::add(new Font("Consola","res/fonts/consola.ttf",28));
 	FontManager::add(new Font("SpaceGrotesk","res/fonts/SpaceGrotesk-Light.ttf",28));
 
-	std::cout << glGetString(GL_VERSION) << std::endl;
+	logger->trace((char *)glGetString(GL_VERSION));
+	//std::cout << glGetString(GL_VERSION) << std::endl;
 
 #if DEMO_LIGHTING
 	Shader* imageShader = new Shader(vertShaderPath.c_str(),fragLightShaderPath.c_str());
@@ -60,16 +68,16 @@ int main(int,char *[]) {
 #endif
 #ifdef __EMSCRIPTEN__
 	imageShader->enable();
-	imageShader->setUniformMat4("vw_matrix",math::mat4::identity());
-	imageShader->setUniformMat4("ml_matrix",math::mat4::identity());
+	imageShader->setUniformMat4("vw_matrix",mat4::identity());
+	imageShader->setUniformMat4("ml_matrix",mat4::identity());
 	imageShader->disable();
 #endif
 
 	Shader* guiShader = new Shader(vertShaderPath.c_str(),fragNoLightShaderPath.c_str());
 #ifdef __EMSCRIPTEN__
 	guiShader->enable();
-	guiShader->setUniformMat4("vw_matrix",math::mat4::identity());
-	guiShader->setUniformMat4("ml_matrix",math::mat4::identity());
+	guiShader->setUniformMat4("vw_matrix",mat4::identity());
+	guiShader->setUniformMat4("ml_matrix",mat4::identity());
 	guiShader->disable();
 #endif
 
@@ -82,7 +90,7 @@ int main(int,char *[]) {
 
 	TileLayer guiLayer(guiShader);
 
-	Group *guiGroup = new Group(math::mat4::translate(math::vec3(5.0f,500.0f,0.0f)));
+	Group *guiGroup = new Group(mat4::translate(vec3(5.0f,500.0f,0.0f)));
 	guiGroup->add(new Sprite(0.0f,0.0f,150.0f,32.0f,0x42FFFFFF));
 	Label *fps = new Label("",5.0f,8.0f,"Consola",0x7000FF00);
 	guiGroup->add(fps);
@@ -99,7 +107,7 @@ int main(int,char *[]) {
 		double x,y;
 		window.getMousePos(x,y);
 		imageShader->enable();
-		imageShader->setUniformVec2("light_pos",math::vec2(x,window.getHeight()-y));
+		imageShader->setUniformVec2("light_pos",vec2(x,window.getHeight()-y));
 		imageShader->disable();
 #endif
 
@@ -111,7 +119,6 @@ int main(int,char *[]) {
 		if (timer.elapsed() - t >= 1.0) {
 			t += 1.0f;
 			fps->setText(std::to_string(totalFrames) + " fps");
-			std::cout << fps->getText() << std::endl;
 			totalFrames = 0;
 		}
 	};
@@ -121,7 +128,7 @@ int main(int,char *[]) {
 #else
 	while (!window.isClosed()) {
 		dispatch_main(&mainloop);
-    }
+	}
 #endif
 
 	return 0;

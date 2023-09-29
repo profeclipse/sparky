@@ -8,7 +8,8 @@ project "sparky-demo"
 	optimize "On"
 
 	includedirs {
-		"%{wks.location}/../sparky-core/include"
+		"%{wks.location}/../sparky-core/include",
+		"%{IncludeDir.spdlog}"
 	}
 
 	links {
@@ -29,7 +30,8 @@ project "sparky-demo"
 			"freetype-gl",
 			"freetype",
 			"glad",
-			"glfw3"
+			"glfw3",
+			"spdlog"
 		}
 
 		linkoptions {
@@ -67,7 +69,8 @@ project "sparky-demo"
 		links {
 			"freeimage",
 			"freetype-gl",
-			"freetype-em"
+			"freetype-em",
+			"spdlog"
 		}
 	
 	filter {}
