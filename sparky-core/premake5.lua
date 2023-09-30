@@ -7,25 +7,25 @@ project "sparky-core"
 
 	optimize "On"
 
+	includedirs {
+		"include",
+		"%{IncludeDir.freeimage}",
+		"%{IncludeDir.freetype_gl}",
+		"%{IncludeDir.glfw}",
+		"%{IncludeDir.spdlog}"
+	}
+
 	filter { "configurations:*", "platforms:mac" }
 		includedirs {
-			"include",
-			"%{IncludeDir.freeimage}",
-			"%{IncludeDir.freetype_gl}",
 			"%{IncludeDir.freetype}",
-			"%{IncludeDir.glad}",
-			"%{IncludeDir.glfw}"
+			"%{IncludeDir.glad}"
 		}
-	
+
 	filter { "configurations:*", "platforms:web" }
 		includedirs {
-			"include",
-			"%{IncludeDir.freeimage}",
-			"%{IncludeDir.freetype_gl}",
-			"%{IncludeDir.freetype_em}",
-			"%{IncludeDir.glfw}"
+			"%{IncludeDir.freetype_em}"
 		}
-	
+
 	filter {}
 
 	files {

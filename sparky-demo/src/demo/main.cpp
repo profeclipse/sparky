@@ -30,9 +30,13 @@ void dispatch_main(void* fp) {
 int main(int,char *[]) {
 	using namespace sparky;
 
+#ifdef __EMSCRIPTEN__
 	auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+#else
+	auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+#endif
 	sink->set_pattern("%^[%T] %n: %v%$");
-	auto logger = std::make_shared<spdlog::logger>("Sparky",sink);
+	auto logger = std::make_shared<spdlog::logger>("SPARKY",sink);
 	spdlog::register_logger(logger);
 	logger->set_level(spdlog::level::trace);
 	logger->flush_on(spdlog::level::trace);

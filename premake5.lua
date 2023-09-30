@@ -1,5 +1,4 @@
 -- premake5.lua
-
 include "dependencies.lua"
 
 workspace "sparky"
