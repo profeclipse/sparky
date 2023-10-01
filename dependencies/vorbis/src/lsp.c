@@ -53,7 +53,7 @@
 
 /* define either of these (preferably FLOAT_LOOKUP) to have faster
    but less precise implementation. */
-#undef FLOAT_LOOKUP
+#define FLOAT_LOOKUP
 #undef INT_LOOKUP
 
 #ifdef FLOAT_LOOKUP

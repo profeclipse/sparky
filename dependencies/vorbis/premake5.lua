@@ -31,6 +31,5 @@ project "vorbis"
     	"src/registry.c",
     	"src/codebook.c",
     	"src/sharedbook.c",
-    	"src/lookup.c",
     	"src/bitrate.c"
 	}
