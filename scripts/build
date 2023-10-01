@@ -24,14 +24,14 @@ do
 	case "${option}" in
 		c)
 			configs="${OPTARG}"
-			if [ "${configs}" != "release" -a "${configs}" != "debug" -a "${configs}" != "all"]
+			if [ "${configs}" != "release" -a "${configs}" != "debug" -a "${configs}" != "all" ]
 			then
 				usage
 			fi
 			;;
 		p)
 			platforms="${OPTARG}"
-			if [ "${platforms}" != "mac" -a "${platforms}" != "web" -a "${platforms}" != "all"]
+			if [ "${platforms}" != "mac" -a "${platforms}" != "web" -a "${platforms}" != "all" ]
 			then
 				usage
 			fi
