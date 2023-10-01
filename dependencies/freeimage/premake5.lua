@@ -42,7 +42,8 @@ project "freeimage"
 			"-Wno-logical-op-parentheses",
 			"-Wno-null-conversion",
 			"-Wno-switch",
-			"-Wno-unused-value"
+			"-Wno-unused-value",
+			"-Wno-deprecated-declarations"
 		}
 	
 	filter "files:**.c"
@@ -59,7 +60,8 @@ project "freeimage"
 			"-Wno-logical-op-parentheses",
 			"-Wno-null-conversion",
 			"-Wno-switch",
-			"-Wno-unused-value"
+			"-Wno-unused-value",
+			"-Wno-deprecated-non-prototype"
 		}
 	
 	filter {}

@@ -35,8 +35,12 @@
 #define __OPEN_GL_H__
 
 #if defined(__APPLE__)
-#	include <glad/glad.h>
-#	include <GLFW/glfw3.h>
+#	ifndef __EMSCRIPTEN__
+#		include <glad/glad.h>
+#		include <GLFW/glfw3.h>
+#	else
+#		include <GLFW/glfw3.h>
+#	endif
 #elif defined(_WIN32) || defined(_WIN64)
 #	include <GL/glew.h>
 #else
