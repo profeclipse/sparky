@@ -25,6 +25,11 @@ findexe premake5 || exit 1
 findexe emmake   || exit 1
 
 cd "${PROJDIR}"
+
+if [ "$1" == "clean" ]
+then
+	rm -rf build/*
+fi
 premake5 gmake2
 
 exit 0
