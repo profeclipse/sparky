@@ -593,7 +593,7 @@ ga_SampleSource* gau_sample_source_create_wav(ga_DataSource* in_dataSrc)
 }
 
 /* OGG Sample Source */
-#include "vorbis/vorbisfile.h"
+#include <vorbis/vorbisfile.h>
 
 typedef struct gau_OggDataSourceCallbackData
 {

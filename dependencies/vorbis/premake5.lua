@@ -9,7 +9,8 @@ project "vorbis"
 
 	includedirs {
 		"include",
-		"src"
+		"src",
+		"../vorbis/include"
 	}
 
 	files {
@@ -31,5 +32,6 @@ project "vorbis"
     	"src/registry.c",
     	"src/codebook.c",
     	"src/sharedbook.c",
-    	"src/bitrate.c"
+    	"src/bitrate.c",
+		"src/vorbisfile.c"
 	}

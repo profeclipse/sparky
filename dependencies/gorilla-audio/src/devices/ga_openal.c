@@ -2,8 +2,8 @@
 
 #include "gorilla/devices/ga_openal.h"
 
-#include "al.h"
-#include "alc.h"
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
 
 #include <stdlib.h>
 #include <stdio.h>

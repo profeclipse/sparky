@@ -22,7 +22,11 @@ project "sparky-demo"
 			"%{IncludeDir.freetype_gl}",
 			"%{IncludeDir.freetype}",
 			"%{IncludeDir.glad}",
-			"%{IncludeDir.glfw}"
+			"%{IncludeDir.glfw}",
+			"%{IncludeDir.gorilla}",
+--			"%{IncludeDir.openal}",
+			"%{IncludeDir.vorbis}",
+			"%{IncludeDir.ogg}"
 		}
 
 		links {
@@ -31,10 +35,15 @@ project "sparky-demo"
 			"freetype",
 			"glad",
 			"glfw3",
+			"gorilla",
+--			"openal",
+			"vorbis",
+			"ogg",
 			"spdlog"
 		}
 
 		linkoptions {
+			"-framework OpenAL",
 			"-framework OpenGL",
 			"-framework Cocoa",
 			"-framework IOKit",

@@ -13,12 +13,15 @@ project "gorilla"
 	}
 
 	buildoptions {
-		"-Wno-incompatible-pointer-types"
+		"-Wno-incompatible-pointer-types",
+		"-Wno-deprecated-declarations",
+		"-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk"
 	}
 
 	includedirs {
 		"include",
-		"%{IncludeDir.openal}/AL"
+		"../vorbis/include",
+		"../ogg/include"
 	}
 
 	files {
