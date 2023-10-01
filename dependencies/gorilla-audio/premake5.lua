@@ -8,7 +8,8 @@ project "gorilla"
 	optimize "On"
 
 	defines {
-		"AL_LIBTYPE_STATIC"
+		"AL_LIBTYPE_STATIC",
+		"ENABLE_OPENAL"
 	}
 
 	buildoptions {
