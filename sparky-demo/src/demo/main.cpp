@@ -3,9 +3,9 @@
 #include <cstddef>
 #include <vector>
 #include <time.h>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/fmt/ostr.h>
+//#include <spdlog/spdlog.h>
+//#include <spdlog/sinks/stdout_color_sinks.h>
+//#include <spdlog/fmt/ostr.h>
 #include "sparky-core.h"
 
 #define DEMO_LIGHTING 0
@@ -30,18 +30,9 @@ void dispatch_main(void* fp) {
 int main(int,char *[]) {
 	using namespace sparky;
 
-#ifdef __EMSCRIPTEN__
-	auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
-#else
-	auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-#endif
-	sink->set_pattern("%^[%T] %n: %v%$");
-	auto logger = std::make_shared<spdlog::logger>("SPARKY",sink);
-	spdlog::register_logger(logger);
-	logger->set_level(spdlog::level::trace);
-	logger->flush_on(spdlog::level::trace);
+	Log::init();
 
-	logger->trace("Hello, World!");
+	SP_TRACE("Hello, World!");
 
 #ifdef __EMSCRIPTEN__
 	std::string shaderDir = "res/shaders/es3/";
@@ -62,7 +53,7 @@ int main(int,char *[]) {
 	FontManager::add(new Font("Consola","res/fonts/consola.ttf",28));
 	FontManager::add(new Font("SpaceGrotesk","res/fonts/SpaceGrotesk-Light.ttf",28));
 
-	logger->trace((char *)glGetString(GL_VERSION));
+	SP_TRACE((char *)glGetString(GL_VERSION));
 	//std::cout << glGetString(GL_VERSION) << std::endl;
 
 #if DEMO_LIGHTING
