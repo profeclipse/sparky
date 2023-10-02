@@ -17,7 +17,6 @@ workspace "sparky"
 	include "dependencies/gorilla-audio"
 	include "dependencies/vorbis"
 	include "dependencies/ogg"
---	include "dependencies/openal-soft"
 	include "dependencies/spdlog"
 
 	include "sparky-core"
