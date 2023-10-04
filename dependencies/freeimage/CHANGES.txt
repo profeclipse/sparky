@@ -1,0 +1,4 @@
+David Hunt
+2023
+
+Removed examples, tests, source files and build files not needed by the Sparky engine.

@@ -6,6 +6,10 @@ project "freetype-gl"
 
 	optimize "On"
 
+	includedirs {
+		"include"
+	}
+
 	filter { "configurations:*", "platforms:mac" }
 		includedirs {
 			"%{IncludeDir.freetype}",
@@ -26,8 +30,8 @@ project "freetype-gl"
 	}
 
 	files {
-		"platform.c",
-		"texture-atlas.c",
-		"texture-font.c",
-		"vector.c"
+		"src/platform.c",
+		"src/texture-atlas.c",
+		"src/texture-font.c",
+		"src/vector.c"
 	}

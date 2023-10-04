@@ -1,6 +1,9 @@
 CHANGE LOG
 ---
 
+David Hunt 2023
+- Removed Makefile and altered some includes to work with Mac and EMSCRIPTEN.
+
 0.3.0
 - All documentation written, at least in provisional form (GAU still needs more
   detail).
