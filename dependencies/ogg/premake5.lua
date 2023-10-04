@@ -1,5 +1,4 @@
 project "ogg"
-	removeplatforms("web")
 	kind "StaticLib"
 	language "C"
 	targetdir "%{wks.location}/lib/%{outputdir}"

@@ -1,5 +1,4 @@
 project "gorilla"
-	removeplatforms("web")
 	kind "StaticLib"
 	language "C++"
 	targetdir "%{wks.location}/lib/%{outputdir}"
@@ -12,17 +11,32 @@ project "gorilla"
 		"ENABLE_OPENAL"
 	}
 
-	buildoptions {
-		"-Wno-incompatible-pointer-types",
-		"-Wno-deprecated-declarations",
-		"-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk"
-	}
+	filter { "configurations:*", "platforms:mac" }
+		buildoptions {
+			"-Wno-incompatible-pointer-types",
+			"-Wno-deprecated-declarations",
+			"-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk"
+		}
 
-	includedirs {
-		"include",
-		"../vorbis/include",
-		"../ogg/include"
-	}
+		includedirs {
+			"include",
+			"../vorbis/include",
+			"../ogg/include"
+		}
+	
+	filter { "configurations:*", "platforms:web" }
+		buildoptions {
+			"-Wno-incompatible-pointer-types",
+			"-Wno-deprecated-declarations"
+		}
+
+		includedirs {
+			"include",
+			"../vorbis/include",
+			"../ogg/include"
+		}
+
+	filter {}
 
 	files {
 		"src/ga.c",

@@ -5,7 +5,6 @@
 #include <time.h>
 #include "sparky-core.h"
 
-#if 1
 #define DEMO_LIGHTING 0
 
 namespace sparky {
@@ -89,6 +88,12 @@ int main(int,char *[]) {
 	guiGroup->add(fps);
 	guiLayer.add(guiGroup);
 
+	SoundManager::init();
+
+	SoundManager::add(new Sound("intro","res/sounds/pacman_beginning.wav"));
+	SoundManager::get("intro")->play();
+	SoundManager::get("intro")->setGain(1.0f);
+
 	Timer timer;
 	float t = 0.0f;
 	uint16_t totalFrames = 0;
@@ -107,6 +112,7 @@ int main(int,char *[]) {
 		layer.render();
 		guiLayer.render();
 
+		SoundManager::update();
 		window.update();
 		++totalFrames;
 		if (timer.elapsed() - t >= 1.0) {
@@ -126,62 +132,3 @@ int main(int,char *[]) {
 
 	return 0;
 }
-#else
-#include "gorilla/ga.h"
-#include "gorilla/gau.h"
-
-#include <stdio.h>
-
-static void setFlagAndDestroyOnFinish(ga_Handle* in_handle, void* in_context)
-{
-  gc_int32* flag = (gc_int32*)(in_context);
-  *flag = 1;
-  ga_handle_destroy(in_handle);
-}
-int main(int argc, char** argv)
-{
-  gau_Manager* mgr;
-  ga_Mixer* mixer;
-  ga_Sound* sound;
-  ga_Handle* handle;
-  gau_SampleSourceLoop* loopSrc = 0;
-  gau_SampleSourceLoop** pLoopSrc = &loopSrc;
-  gc_int32 loop = 0;
-  gc_int32 quit = 0;
-
-  /* Initialize library + manager */
-  std::cout << "gc_initialize" << std::endl;
-  gc_initialize(0);
-  std::cout << "gau_manager_create" << std::endl;
-  mgr = gau_manager_create();
-  std::cout << "gau_manager_mixer" << std::endl;
-  mixer = gau_manager_mixer(mgr);
-
-  /* Create and play shared sound */
-  if(!loop)
-    pLoopSrc = 0;
-  std::cout << "gau_load_sound_file" << std::endl;
-  sound = gau_load_sound_file("res/sounds/pacman_beginning.wav", "wav");
-  std::cout << "gau_create_handle_sound" << std::endl;
-  handle = gau_create_handle_sound(mixer, sound, &setFlagAndDestroyOnFinish, &quit, pLoopSrc);
-  std::cout << "ga_handle_play" << std::endl;
-  ga_handle_play(handle);
-
-  /* Bounded mix/queue/dispatch loop */
-  while(!quit)
-  {
-    gau_manager_update(mgr);
-    printf("%d / %d\n", ga_handle_tell(handle, GA_TELL_PARAM_CURRENT), ga_handle_tell(handle, GA_TELL_PARAM_TOTAL));
-    gc_thread_sleep(1);
-  }
-
-  /* Clean up sound */
-  ga_sound_release(sound);
-
-  /* Clean up library + manager */
-  gau_manager_destroy(mgr);
-  gc_shutdown();
-
-  return 0;
-}
-#endif

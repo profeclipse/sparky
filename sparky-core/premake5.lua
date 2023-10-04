@@ -18,14 +18,24 @@ project "sparky-core"
 	filter { "configurations:*", "platforms:mac" }
 		includedirs {
 			"%{IncludeDir.freetype}",
-			"%{IncludeDir.glad}"
+			"%{IncludeDir.glad}",
+			"%{IncludeDir.gorilla}",
+			"%{IncludeDir.vorbis}",
+			"%{IncludeDir.ogg}"
 		}
 
 	filter { "configurations:*", "platforms:web" }
 		includedirs {
-			"%{IncludeDir.freetype_em}"
+			"%{IncludeDir.freetype_em}",
+			"%{IncludeDir.gorilla}",
+			"%{IncludeDir.vorbis}",
+			"%{IncludeDir.ogg}"
 		}
 
+		files {
+			"src/**.js"
+		}
+	
 	filter {}
 
 	files {

@@ -2,8 +2,13 @@
 
 #include "gorilla/devices/ga_openal.h"
 
+#ifdef __EMSCRIPTEN__
+#include <AL/al.h>
+#include <AL/alc.h>
+#else
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>

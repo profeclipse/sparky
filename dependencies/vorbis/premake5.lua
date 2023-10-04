@@ -1,5 +1,4 @@
 project "vorbis"
-	removeplatforms("web")
 	kind "StaticLib"
 	language "C"
 	targetdir "%{wks.location}/lib/%{outputdir}"
@@ -10,7 +9,8 @@ project "vorbis"
 	includedirs {
 		"include",
 		"src",
-		"../vorbis/include"
+		"../vorbis/include",
+		"../ogg/include"
 	}
 
 	files {

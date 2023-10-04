@@ -24,7 +24,6 @@ project "sparky-demo"
 			"%{IncludeDir.glad}",
 			"%{IncludeDir.glfw}",
 			"%{IncludeDir.gorilla}",
---			"%{IncludeDir.openal}",
 			"%{IncludeDir.vorbis}",
 			"%{IncludeDir.ogg}"
 		}
@@ -36,7 +35,6 @@ project "sparky-demo"
 			"glad",
 			"glfw3",
 			"gorilla",
---			"openal",
 			"vorbis",
 			"ogg",
 			"spdlog"
@@ -60,12 +58,16 @@ project "sparky-demo"
 			"%{IncludeDir.freeimage}",
 			"%{IncludeDir.freetype_gl}",
 			"%{IncludeDir.freetype_em}",
-			"%{IncludeDir.glfw}"
+			"%{IncludeDir.glfw}",
+			"%{IncludeDir.gorilla}",
+			"%{IncludeDir.vorbis}",
+			"%{IncludeDir.ogg}"
 		}
 
 		targetextension ".html"
 
 		linkoptions {
+			"-lopenal",
 			"--preload-file %{wks.location}/../sparky-demo/src/res@res",
 			"-sUSE_GLFW=3",
 			"-sMAX_WEBGL_VERSION=2",
@@ -79,6 +81,10 @@ project "sparky-demo"
 			"freeimage",
 			"freetype-gl",
 			"freetype-em",
+			"spdlog",
+			"gorilla",
+			"vorbis",
+			"ogg",
 			"spdlog"
 		}
 	

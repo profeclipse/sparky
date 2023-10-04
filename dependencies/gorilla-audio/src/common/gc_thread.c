@@ -50,7 +50,7 @@ void gc_thread_destroy(gc_Thread* in_thread)
   gcX_ops->freeFunc(in_thread);
 }
 
-#elif defined(__linux__) || defined(__APPLE__)
+#elif defined(__linux__) || defined(__APPLE__) || defined(__EMSCRIPTEN__)
 #include <pthread.h>
 #include <sched.h>
 
@@ -160,7 +160,7 @@ void gc_mutex_unlock(gc_Mutex* in_mutex)
   LeaveCriticalSection((CRITICAL_SECTION*)in_mutex->mutex);
 }
 
-#elif defined(__linux__) || defined(__APPLE__)
+#elif defined(__linux__) || defined(__APPLE__) || defined(__EMSCRIPTEN__)
 
 #include <pthread.h>
 

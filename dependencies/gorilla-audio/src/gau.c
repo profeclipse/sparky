@@ -16,6 +16,11 @@
 #define stricmp strcasecmp
 #endif /* __linux__ */
 
+#ifdef __EMSCRIPTEN__
+#include <strings.h>
+#define stricmp strcasecmp
+#endif
+
 /* High-Level Manager */
 typedef struct gau_Manager {
   gc_int32 threadPolicy;
