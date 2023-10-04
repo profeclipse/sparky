@@ -8,20 +8,8 @@
 #include <gorilla/gau.h>
 
 namespace sparky {
-	void destroy_on_finish(ga_Handle* inHandle,void *inContext) {
-		SP_TRACE("[Sound] - in destroy_on_finish()");
-		Sound* sound = (Sound*)inContext;
-		sound->m_count--;
-		if (sound->m_count == 0)
-			sound->stop();
-	}
-
-	void loop_on_finish(ga_Handle* inHandle,void *inContext) {
-		SP_TRACE("[Sound] - in loop_on_finish()");
-		Sound* sound = (Sound*)inContext;
-		sound->loop();
-		ga_handle_destroy(inHandle);
-	}
+	void destroy_on_finish(ga_Handle* inHandle,void *inContext);
+	void loop_on_finish(ga_Handle* inHandle,void *inContext);
 
 	Sound::Sound(const std::string& name,const std::string fileName)
 		: m_name(name),m_fileName(fileName),m_count(0),m_playing(false) {
@@ -49,7 +37,7 @@ namespace sparky {
 
 	void Sound::play() {
 		SP_TRACE("[Sound] - in Sound::play()");
-		m_handle = gau_create_handle_sound(SoundManager::getMixer(),m_sound,&destroy_on_finish,
+		m_handle = gau_create_handle_sound(SoundManager::m_mixer,m_sound,&destroy_on_finish,
 				this,NULL);
 		ga_handle_play(m_handle);
 		m_count++;
@@ -58,7 +46,7 @@ namespace sparky {
 
 	void Sound::loop() {
 		SP_TRACE("[Sound] - in Sound::loop()");
-		m_handle = gau_create_handle_sound(SoundManager::getMixer(),m_sound,&loop_on_finish,this,NULL);
+		m_handle = gau_create_handle_sound(SoundManager::m_mixer,m_sound,&loop_on_finish,this,NULL);
 		ga_handle_play(m_handle);
 		m_playing = true;
 	}
@@ -98,5 +86,20 @@ namespace sparky {
 		}
 		m_gain = gain;
 		ga_handle_setParamf(m_handle,GA_HANDLE_PARAM_GAIN,gain);
+	}
+
+	void destroy_on_finish(ga_Handle* inHandle,void *inContext) {
+		SP_TRACE("[Sound] - in destroy_on_finish()");
+		Sound* sound = (Sound*)inContext;
+		sound->m_count--;
+		if (sound->m_count == 0)
+			sound->stop();
+	}
+
+	void loop_on_finish(ga_Handle* inHandle,void *inContext) {
+		SP_TRACE("[Sound] - in loop_on_finish()");
+		Sound* sound = (Sound*)inContext;
+		sound->loop();
+		ga_handle_destroy(inHandle);
 	}
 }
