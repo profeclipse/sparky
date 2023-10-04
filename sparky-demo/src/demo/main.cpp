@@ -88,11 +88,8 @@ int main(int,char *[]) {
 	guiGroup->add(fps);
 	guiLayer.add(guiGroup);
 
-	SoundManager::init();
-
-	SoundManager::add(new Sound("intro","res/sounds/pacman_beginning.wav"));
-	SoundManager::get("intro")->play();
-	SoundManager::get("intro")->setGain(1.0f);
+	SoundManager::add(new Sound("start","res/sounds/start-music.ogg"));
+	SoundManager::get("start")->play();
 
 	Timer timer;
 	float t = 0.0f;
@@ -112,7 +109,6 @@ int main(int,char *[]) {
 		layer.render();
 		guiLayer.render();
 
-		SoundManager::update();
 		window.update();
 		++totalFrames;
 		if (timer.elapsed() - t >= 1.0) {

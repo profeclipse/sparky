@@ -2,6 +2,7 @@
 #include "sparky-gl.h"
 #include "sparky-utils.h"
 #include "graphics/FontManager.h"
+#include "audio/SoundManager.h"
 #include "application/Window.h"
 
 namespace sparky {
@@ -19,6 +20,7 @@ namespace sparky {
 
 	Window::~Window() {
 		FontManager::clear();
+		SoundManager::clear();
 		glfwTerminate();
 	}
 
@@ -121,6 +123,7 @@ namespace sparky {
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
 		FreeImage_Initialise();
+		SoundManager::init();
 
 		m_closed = false;
 
@@ -146,6 +149,8 @@ namespace sparky {
 
 		glfwPollEvents();
 		glfwSwapBuffers(m_window);
+
+		SoundManager::update();
 	}
 
 	void Window::framebuffer_resize(int32_t width,int32_t height) {

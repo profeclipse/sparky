@@ -20,7 +20,7 @@ namespace sparky {
 			static void add(Sound* sound);
 			static Sound* get(const std::string& name);
 			static void update();
-			static void clean();
+			static void clear();
 
 			static ga_Mixer* getMixer()		{ return m_mixer; }
 

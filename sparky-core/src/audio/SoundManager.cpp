@@ -34,7 +34,7 @@ namespace sparky {
 		return nullptr;
 	}
 
-	void SoundManager::clean() {
+	void SoundManager::clear() {
 		SP_TRACE("[SoundManager] - in clean()");
 		for (Sound* sound : m_sounds) {
 			delete sound;
