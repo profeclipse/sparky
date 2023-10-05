@@ -9,6 +9,7 @@ namespace sparky {
 
 	Application::Application() :
 		m_framesPerSecond(0), m_updatesPerSecond(0) {
+		Log::init();
 	}
 
 	Application::~Application() {
@@ -23,7 +24,6 @@ namespace sparky {
 	}
 
 	void Application::start() {
-		Log::init();
 		init();
 		run();
 	}

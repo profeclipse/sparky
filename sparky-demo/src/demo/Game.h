@@ -8,6 +8,7 @@ class Game : public sparky::Application {
 		sparky::Layer*	m_backgroundLayer;
 		sparky::Layer*	m_guiLayer;
 		sparky::Label*	m_fpsLabel;
+		sparky::Sprite* m_sprite;
 
 		static const std::string SHADER_DIR;
 
@@ -17,6 +18,7 @@ class Game : public sparky::Application {
 
 		void init() override;
 		void tick() override;
+		void update() override;
 		void render() override;
 
 		void initWindow();

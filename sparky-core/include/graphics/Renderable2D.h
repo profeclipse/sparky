@@ -60,6 +60,9 @@ namespace sparky {
 				m_color = a << 24 | b << 16 | g << 8 | r;
 			}
 
+			void setPosition(vec3& position)		{ m_position = position; }
+			void setSize(vec2& size)				{ m_size = size; }
+
 			const vec3& getPosition() const			{ return m_position; }
 			const vec2& getSize() const				{ return m_size; }
 			uint32_t getColor() const						{ return m_color; }

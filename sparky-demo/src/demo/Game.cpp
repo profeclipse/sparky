@@ -3,6 +3,7 @@
 
 #define DEMO_LIGHTING 0
 #define PLAY_SOUNDS 0
+#define FIXED_RUN_TIME 0
 
 using namespace sparky;
 
@@ -40,9 +41,32 @@ void Game::tick() {
 	m_fpsLabel->setText(std::to_string(getFPS()) + " fps");
 	SP_TRACE("[tick] {}",m_fpsLabel->getText().c_str());
 
+#if FIXED_RUN_TIME
 	if (++ticks >= 5) {
 		m_window->close();
 	}
+#endif
+}
+
+void Game::update() {
+	static float xdir = 2.0f;
+	static float ydir = 2.0f;
+
+	const vec2& size = m_sprite->getSize();
+	vec3 pos = m_sprite->getPosition();
+
+	pos.x += xdir;
+	pos.y += ydir;
+	if (((pos.x+size.x) > m_window->getWidth()) || (pos.x < 0)) {
+		xdir = -xdir;
+		pos.x += xdir;
+	}
+	if (((pos.y+size.y) > m_window->getHeight()) || (pos.y < 0)) {
+		ydir = -ydir;
+		pos.y += ydir;
+	}
+
+	m_sprite->setPosition(pos);
 }
 
 void Game::render() {
@@ -97,8 +121,8 @@ void Game::loadBackgroundLayer() {
 				TextureManager::get("girl1")));
 	m_backgroundLayer->add(new Sprite(100.0f,100.0f,m_window->getWidth()-200,m_window->getHeight()-200,
 				TextureManager::get("girl2")));
-	m_backgroundLayer->add(new Sprite(200.0f,200.0f,16.0f,16.0f,
-				TextureManager::get("sprite")));
+	m_sprite = new Sprite(200.0f,200.0f,16.0f,16.0f,TextureManager::get("sprite"));
+	m_backgroundLayer->add(m_sprite);
 }
 
 void Game::loadGUILayer() {
