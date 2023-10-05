@@ -119,6 +119,8 @@ namespace sparky {
 			return false;
 		}
 #endif
+		SP_TRACE((char *)glGetString(GL_VERSION));
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 

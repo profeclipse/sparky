@@ -74,7 +74,8 @@ project "sparky-demo"
 			"-sFULL_ES3=1",
 			"-sASSERTIONS=1",
 			"-sWASM=1",
-			"-sASYNCIFY"
+			"-sASYNCIFY",
+			"-sALLOW_MEMORY_GROWTH"
 		}
 
 		links {

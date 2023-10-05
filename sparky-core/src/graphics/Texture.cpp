@@ -2,8 +2,8 @@
 #include "graphics/Texture.h"
 
 namespace sparky {
-	Texture::Texture(const std::string& file)
-		: m_file(file) {
+	Texture::Texture(const std::string& name,const std::string& file)
+		: m_name(name),m_file(file) {
 			m_tid = load();
 		}
 
