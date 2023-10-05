@@ -41,6 +41,10 @@ namespace sparky {
 					setColor(color);
 					setUVDefaults();
 				}
+			Renderable2D(vec3 position,vec2 size,uint32_t color,std::vector<vec2>& uv)
+				: m_position(position),m_size(size),m_color(color),m_texture(nullptr) {
+					m_uv = uv;
+			}
 
 			virtual ~Renderable2D() {
 			}

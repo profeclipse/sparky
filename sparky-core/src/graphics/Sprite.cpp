@@ -15,4 +15,9 @@ namespace sparky {
 	{
 		m_texture = texture;
 	}
+	Sprite::Sprite(float x,float y,float width,float height,Texture* texture,std::vector<vec2>& uv)
+		: Renderable2D(vec3(x,y,0.0f),vec2(width,height),0xffffffff,uv)
+	{
+		m_texture = texture;
+	}
 }
