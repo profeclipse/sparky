@@ -11,7 +11,7 @@ TODO List:
         from the TextureAtlas
     - TextureAtlas
         - Texture* m_texture
-        - std::vector<std::vector<vec2>> m_uv
+        - std::vector< std::vector<vec2> > m_uv
         - If all sprites are same width/height, can calculate tex coords based on that
         - If sprites have different width/height, will need some way to specify coords
         for each sprite (load from text file?)
