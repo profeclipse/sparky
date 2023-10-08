@@ -18,6 +18,7 @@ workspace "sparky"
 	include "dependencies/vorbis"
 	include "dependencies/ogg"
 	include "dependencies/spdlog"
+	include "dependencies/jsoncpp"
 
 	include "sparky-core"
 	

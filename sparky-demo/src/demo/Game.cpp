@@ -38,8 +38,8 @@ void Game::init() {
 
 void Game::tick() {
 	static uint16_t ticks = 0;
-	m_fpsLabel->setText(std::to_string(getFPS()) + " fps");
-	SP_TRACE("[tick] {}",m_fpsLabel->getText().c_str());
+	m_fpsLabel->setText(std::to_string(getFPS()) + " fps " + std::to_string(getUPS()) + " ups");
+	//SP_TRACE("[tick] {}",m_fpsLabel->getText().c_str());
 
 #if FIXED_RUN_TIME
 	if (++ticks >= 5) {
@@ -49,21 +49,22 @@ void Game::tick() {
 }
 
 void Game::update() {
-	static float xdir = 2.0f;
-	static float ydir = 2.0f;
+	static float xdir = 1.0f;
+	static float ydir = 1.0f;
+	static float speed = 2.0f;	// pixels per update
 
 	const vec2& size = m_sprite->getSize();
 	vec3 pos = m_sprite->getPosition();
 
-	pos.x += xdir;
-	pos.y += ydir;
-	if (((pos.x+size.x) > m_window->getWidth()) || (pos.x < 0)) {
+	pos.x += xdir * speed;
+	pos.y += ydir * speed;
+	if (((pos.x+size.x) > 960) || (pos.x < 0)) {
 		xdir = -xdir;
-		pos.x += xdir;
+		pos.x += xdir * speed;
 	}
-	if (((pos.y+size.y) > m_window->getHeight()) || (pos.y < 0)) {
+	if (((pos.y+size.y) > 540) || (pos.y < 0)) {
 		ydir = -ydir;
-		pos.y += ydir;
+		pos.y += ydir * speed;
 	}
 
 	m_sprite->setPosition(pos);
@@ -92,6 +93,8 @@ void Game::loadTextures() {
 	TextureManager::add(new Texture("girl1","res/images/test.jpg"));
 	TextureManager::add(new Texture("girl2","res/images/meisa.jpg"));
 	TextureManager::add(new Texture("sprite","res/images/tb.png"));
+	TextureManager::add(new Texture("pacman","res/images/pac-man-sprites.png"));
+	m_textureAtlas = new TextureAtlas(TextureManager::get("pacman"),186,158);
 }
 
 void Game::loadLayers() {
@@ -121,6 +124,14 @@ void Game::loadBackgroundLayer() {
 				TextureManager::get("girl1")));
 	m_backgroundLayer->add(new Sprite(100.0f,100.0f,m_window->getWidth()-200,m_window->getHeight()-200,
 				TextureManager::get("girl2")));
+#if 1
+	Sprite *sprite = new Sprite(50.0f,50.0f,64.0f,64.0f,
+				m_textureAtlas->getTexture(),
+				m_textureAtlas->getUV(3,3));
+#else
+	Sprite *sprite = new Sprite(50.0f,50.0f,200.0f,200.0f,TextureManager::get("pacman"));
+#endif
+	m_backgroundLayer->add(sprite);
 	m_sprite = new Sprite(200.0f,200.0f,16.0f,16.0f,TextureManager::get("sprite"));
 	m_backgroundLayer->add(m_sprite);
 }
@@ -139,7 +150,7 @@ void Game::loadGUILayer() {
 	m_guiLayer = new TileLayer(shader);
 
 	Group *guiGroup = new Group(mat4::translate(vec3(5.0f,500.0f,0.0f)));
-	guiGroup->add(new Sprite(0.0f,0.0f,150.0f,32.0f,0x42FFFFFF));
+	guiGroup->add(new Sprite(0.0f,0.0f,240.0f,32.0f,0x42FFFFFF));
 	m_fpsLabel = new Label("",5.0f,8.0f,"Consola",0x7000FF00);
 	guiGroup->add(m_fpsLabel);
 	m_guiLayer->add(guiGroup);

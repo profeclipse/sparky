@@ -1,3 +1,4 @@
+#include "utils/Log.h"
 #include "graphics/Sprite.h"
 #include "graphics/Texture.h"
 
@@ -19,5 +20,8 @@ namespace sparky {
 		: Renderable2D(vec3(x,y,0.0f),vec2(width,height),0xffffffff,uv)
 	{
 		m_texture = texture;
+		for (auto u : uv) {
+			SP_TRACE("[Sprite] - uv: {},{}",u.x,u.y);
+		}
 	}
 }

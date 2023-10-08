@@ -44,7 +44,8 @@ namespace sparky {
 #else
 		while (!m_window->isClosed()) {
 #endif
-			if (m_timer->elapsed() - updateTimer > updateTick)
+			float elapsed = m_timer->elapsed();
+			if (elapsed - updateTimer > updateTick)
 			{
 				update();
 				++updates;
@@ -54,7 +55,7 @@ namespace sparky {
 			render();
 			m_window->update();
 			++frames;
-			if (m_timer->elapsed() - timer > 1.0f)
+			if (elapsed - timer > 1.0f)
 			{
 				timer += 1.0f;
 				m_framesPerSecond = frames;

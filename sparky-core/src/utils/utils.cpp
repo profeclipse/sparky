@@ -38,7 +38,7 @@ namespace sparky {
 		}
 	}
 
-	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height)
+	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height,int* bpp)
 	{
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		FIBITMAP* dib = nullptr;
@@ -63,9 +63,13 @@ namespace sparky {
 		*width = FreeImage_GetWidth(dib);
 		*height = FreeImage_GetHeight(dib);
 		int bits = FreeImage_GetBPP(dib);
+		if (bpp) {
+			*bpp = bits;
+		}
 
 #ifdef __EMSCRIPTEN__
-		SwapRedBlue32(dib);
+		if (bits > 16)
+			SwapRedBlue32(dib);
 #endif
 
 		int size = *width * *height * (bits / 8);

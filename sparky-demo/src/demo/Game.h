@@ -9,6 +9,7 @@ class Game : public sparky::Application {
 		sparky::Layer*	m_guiLayer;
 		sparky::Label*	m_fpsLabel;
 		sparky::Sprite* m_sprite;
+		sparky::TextureAtlas* m_textureAtlas;
 
 		static const std::string SHADER_DIR;
 

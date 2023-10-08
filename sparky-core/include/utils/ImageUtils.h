@@ -4,5 +4,5 @@
 #include <FreeImage.h>
 
 namespace sparky {
-	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height);
+	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height, int* bpp=nullptr);
 }

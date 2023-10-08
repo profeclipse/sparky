@@ -7,6 +7,10 @@ project "sparky-core"
 
 	optimize "On"
 
+	defines {
+		"SPARKY_DEBUG"
+	}
+
 	includedirs {
 		"include",
 		"%{IncludeDir.freeimage}",

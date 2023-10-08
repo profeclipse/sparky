@@ -13,5 +13,6 @@
 #include "graphics/Layer.h"
 #include "graphics/Group.h"
 #include "graphics/Texture.h"
+#include "graphics/TextureAtlas.h"
 #include "graphics/TextureManager.h"
 #include "graphics/Label.h"
