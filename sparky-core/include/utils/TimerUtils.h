@@ -37,4 +37,23 @@ namespace sparky {
 			}
 
 	};
+
+	class TimeStep {
+		private:
+			float m_timeStep;
+			float m_lastTime;
+
+		public:
+			TimeStep(float initialTime) :
+				m_timeStep(0.0f),m_lastTime(initialTime) {
+			}
+
+			void update(float currentTime) {
+				m_timeStep = currentTime - m_lastTime;
+				m_lastTime = currentTime;
+			}
+
+			float getMillis() const		{ return m_timeStep * 1000.0f; }
+			float getSeconds() const	{ return m_timeStep; }
+	};
 }

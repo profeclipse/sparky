@@ -1,3 +1,4 @@
+#include <format>
 #include "Game.h"
 #include "TileLayer.h"
 
@@ -38,7 +39,7 @@ void Game::init() {
 
 void Game::tick() {
 	static uint16_t ticks = 0;
-	m_fpsLabel->setText(std::to_string(getFPS()) + " fps " + std::to_string(getUPS()) + " ups");
+	m_fpsLabel->setText(fmt::format("{:4d} fps {:2d} ups {:.2f} ms",getFPS(),getUPS(),getFrameTime()));
 	//SP_TRACE("[tick] {}",m_fpsLabel->getText().c_str());
 
 #if FIXED_RUN_TIME
@@ -48,23 +49,24 @@ void Game::tick() {
 #endif
 }
 
-void Game::update() {
+void Game::update(const TimeStep& ts) {
 	static float xdir = 1.0f;
 	static float ydir = 1.0f;
-	static float speed = 2.0f;	// pixels per update
+	static float speed = 120.0f;	// pixels per second
+	float elapsed = ts.getSeconds();
 
 	const vec2& size = m_sprite->getSize();
 	vec3 pos = m_sprite->getPosition();
 
-	pos.x += xdir * speed;
-	pos.y += ydir * speed;
+	pos.x += xdir * speed * elapsed;
+	pos.y += ydir * speed * elapsed;
 	if (((pos.x+size.x) > 960) || (pos.x < 0)) {
 		xdir = -xdir;
-		pos.x += xdir * speed;
+		pos.x += xdir * speed * elapsed;
 	}
 	if (((pos.y+size.y) > 540) || (pos.y < 0)) {
 		ydir = -ydir;
-		pos.y += ydir * speed;
+		pos.y += ydir * speed * elapsed;
 	}
 
 	m_sprite->setPosition(pos);
@@ -132,7 +134,7 @@ void Game::loadBackgroundLayer() {
 	Sprite *sprite = new Sprite(50.0f,50.0f,200.0f,200.0f,TextureManager::get("pacman"));
 #endif
 	m_backgroundLayer->add(sprite);
-	m_sprite = new Sprite(200.0f,200.0f,16.0f,16.0f,TextureManager::get("sprite"));
+	m_sprite = new Sprite(200.0f,150.0f,16.0f,16.0f,TextureManager::get("sprite"));
 	m_backgroundLayer->add(m_sprite);
 }
 
@@ -150,7 +152,7 @@ void Game::loadGUILayer() {
 	m_guiLayer = new TileLayer(shader);
 
 	Group *guiGroup = new Group(mat4::translate(vec3(5.0f,500.0f,0.0f)));
-	guiGroup->add(new Sprite(0.0f,0.0f,240.0f,32.0f,0x42FFFFFF));
+	guiGroup->add(new Sprite(0.0f,0.0f,375.0f,32.0f,0x42FFFFFF));
 	m_fpsLabel = new Label("",5.0f,8.0f,"Consola",0x7000FF00);
 	guiGroup->add(m_fpsLabel);
 	m_guiLayer->add(guiGroup);

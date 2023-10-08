@@ -35,6 +35,7 @@ namespace sparky {
 		float updateTick = 1.0f / 60.0f;
 		uint32_t frames = 0;
 		uint32_t updates = 0;
+		TimeStep ts(m_timer->elapsed());
 
 #ifdef __EMSCRIPTEN__
 		std::function<void()> mainLoop = [&]() {
@@ -47,12 +48,17 @@ namespace sparky {
 			float elapsed = m_timer->elapsed();
 			if (elapsed - updateTimer > updateTick)
 			{
-				update();
+				ts.update(elapsed);
+				update(ts);
 				++updates;
 				updateTimer += updateTick;
 			}
 			m_window->clear();
-			render();
+			{
+				Timer frametime;
+				render();
+				m_frameTime = frametime.elapsedMillis();
+			}
 			m_window->update();
 			++frames;
 			if (elapsed - timer > 1.0f)

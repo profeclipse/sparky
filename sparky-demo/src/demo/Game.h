@@ -19,7 +19,7 @@ class Game : public sparky::Application {
 
 		void init() override;
 		void tick() override;
-		void update() override;
+		void update(const sparky::TimeStep& ts) override;
 		void render() override;
 
 		void initWindow();
