@@ -15,8 +15,7 @@ project "freeimage"
 		"Source/LibPNG",
 		"Source/LibTIFF4",
 		"Source/ZLib",
-		"Source/LibOpenJPEG",
-		"Source/LibWebP"
+		"Source/LibOpenJPEG"
 	}
 
 	filter { "configurations:*", "platforms:web" }
@@ -106,7 +105,6 @@ project "freeimage"
 		"Source/FreeImage/PluginTARGA.cpp",
 		"Source/FreeImage/PluginTIFF.cpp",
 		"Source/FreeImage/PluginWBMP.cpp",
-		"Source/FreeImage/PluginWebP.cpp",
 		"Source/FreeImage/PluginXBM.cpp",
 		"Source/FreeImage/PluginXPM.cpp",
 		"Source/FreeImage/PSDParser.cpp",
