@@ -16,7 +16,8 @@ project "sparky-core"
 		"%{IncludeDir.freeimage}",
 		"%{IncludeDir.freetype_gl}",
 		"%{IncludeDir.glfw}",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.json}"
 	}
 
 	filter { "configurations:*", "platforms:mac" }

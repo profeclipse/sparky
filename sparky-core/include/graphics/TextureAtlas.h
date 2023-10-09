@@ -9,14 +9,12 @@ namespace sparky {
 		private:
 			Texture* m_texture;
 			std::vector<std::vector<vec2>> m_uvs;
-			uint16_t m_rows;
-			uint16_t m_cols;
 
 		public:
-			TextureAtlas(Texture* texture,uint16_t width,uint16_t height);
+			TextureAtlas(Texture* texture,std::vector<std::vector<vec2>>& uvs);
 
 			Texture* getTexture() const			{ return m_texture; }
-			std::vector<vec2>& getUV(int row,int col)
-												{ return m_uvs[row*m_cols+col]; }
+			std::vector<vec2>& getUV(int index)
+												{ return m_uvs[index]; }
 	};
 }

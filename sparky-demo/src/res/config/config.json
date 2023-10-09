@@ -1,0 +1,13 @@
+{
+	"defaults": {
+		"font": {
+			"name": "SourceSansPro",
+			"path": "res/fonts/SourceSansPro-Light.ttf"
+		}
+	},
+	"options": [
+		{ "option": "opt1" },
+		{ "option": "opt2" },
+		{ "option": "opt3" }
+	]
+}

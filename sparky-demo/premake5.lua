@@ -9,11 +9,13 @@ project "sparky-demo"
 
 	includedirs {
 		"%{wks.location}/../sparky-core/include",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.json}"
 	}
 
 	links {
-		"sparky-core"
+		"sparky-core",
+		"jsoncpp"
 	}
 
 	filter { "configurations:*", "platforms:mac" }

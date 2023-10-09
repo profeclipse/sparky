@@ -28,4 +28,5 @@ class Game : public sparky::Application {
 		void loadLayers();
 		void loadBackgroundLayer();
 		void loadGUILayer();
+		void loadAtlas();
 };
