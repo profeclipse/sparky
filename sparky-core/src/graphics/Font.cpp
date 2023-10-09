@@ -1,3 +1,4 @@
+#include "utils/Log.h"
 #include "graphics/Font.h"
 
 namespace sparky {
@@ -7,9 +8,9 @@ namespace sparky {
 		m_ftAtlas = ftgl::texture_atlas_new(512,512,2);
 		m_ftFont = ftgl::texture_font_new_from_file(m_ftAtlas,size,filename.c_str());
 		if (m_ftAtlas == nullptr)
-			std::cout << "texture_atlas_new failed" << std::endl;
+			SP_ERROR("[Font::Font] - texture_atlas_new failed");
 		if (m_ftFont == nullptr)
-			std::cout << "texture_font_new_from_file failed" << std::endl;
+			SP_ERROR("[Font::Font] - texture_font_new_from_file failed");
 	}
 
 	Font::~Font() {

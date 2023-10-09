@@ -11,8 +11,7 @@ namespace sparky {
 	std::string read_file(const char* filepath) {
 		FILE* file = fopen(filepath,"r");
 		if (!file) {
-			// TODO: log error
-			std::cout << "failed to open file '" << filepath << "'" << std::endl;
+			SP_ERROR("[read_file] - failed to open file '{}'",filepath);
 			return "";
 		}
 
@@ -33,8 +32,7 @@ namespace sparky {
 	void check_gl_status(const char* file,int line) {
 		int result;
 		while ((result = glGetError()) != GL_NO_ERROR) {
-			std::cout << "OpenGL Error - " << result << " in file " << file
-				<< " at line " << line << std::endl;
+			SP_ERROR("[check_gl_status] - OpenGL Error: {} in file {} at line {}",result,file,line);
 		}
 	}
 
@@ -47,7 +45,7 @@ namespace sparky {
 			fif = FreeImage_GetFIFFromFilename(filename);
 		if (fif == FIF_UNKNOWN)
 		{
-			std::cout << "unknown image format or file not found '" << filename << "'" << std::endl;
+			SP_ERROR("[load_image] - unknown image format or file not found '{}'",filename);
 			return nullptr;
 		}
 
@@ -55,7 +53,7 @@ namespace sparky {
 			dib = FreeImage_Load(fif,filename);
 		if (!dib)
 		{
-			std::cout << "failed to load file '" << filename << "'" << std::endl;
+			SP_ERROR("[load_image] - failed to load file '{}'",filename);
 			return nullptr;
 		}
 

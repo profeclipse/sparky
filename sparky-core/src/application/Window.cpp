@@ -89,7 +89,7 @@ namespace sparky {
 
 	bool Window::init() {
 		if (!glfwInit()) {
-			std::cout << "Error: failed to initialize GLFW" << std::endl;
+			SP_CRITICAL("[Window::init] - failed to initialize GLFW");
 			return false;
 		}
 #ifndef __EMSCRIPTEN__
@@ -99,7 +99,7 @@ namespace sparky {
 #endif
 		m_window = glfwCreateWindow(m_width,m_height,m_title, NULL, NULL);
 		if (!m_window) {
-			std::cout << "Error: failed to create window" << std::endl;
+			SP_CRITICAL("[Window::init] - failed to create window");
 			glfwTerminate();
 			return false;
 		}
@@ -114,7 +114,7 @@ namespace sparky {
 		glfwSwapInterval(0);
 #ifndef __EMSCRIPTEN__
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-			std::cout << "Error: failed load GL extensions" << std::endl;
+			SP_CRITICAL("[Window::init] - failed to load GL extensions");
 			glfwTerminate();
 			return false;
 		}
@@ -143,7 +143,7 @@ namespace sparky {
 	void Window::update() {
 		GLenum status;
 		while ((status = glGetError()) != GL_NO_ERROR) {
-			std::cout << "OpenGL Error: " << status << std::endl;
+			SP_ERROR("[Window::update] - OpenGL Error: {}",status);
 		}
 
 		memcpy(m_oldKeyState,m_keyState,sizeof(m_oldKeyState));

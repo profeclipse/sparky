@@ -78,8 +78,7 @@ namespace sparky {
 			glGetShaderiv(vs,GL_INFO_LOG_LENGTH,&length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(vs,length,&length,&error[0]);
-			std::cout << "Failed to compile " << m_vertPath << std::endl;
-			std::cout << &error[0] << std::endl;
+			SP_ERROR("[Shader::load] - failed to compile '{}' ({})",m_vertPath,&error[0]);
 			CHECK_GL(glDeleteShader(fs));
 			CHECK_GL(glDeleteShader(vs));
 			CHECK_GL(glDeleteProgram(program));
@@ -94,8 +93,7 @@ namespace sparky {
 			glGetShaderiv(fs,GL_INFO_LOG_LENGTH,&length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(fs,length,&length,&error[0]);
-			std::cout << "Failed to compile " << m_fragPath << std::endl;
-			std::cout << &error[0] << std::endl;
+			SP_ERROR("[Shader::load] - failed to compile '{}' ({})",m_fragPath,&error[0]);
 			CHECK_GL(glDeleteShader(fs));
 			CHECK_GL(glDeleteShader(vs));
 			CHECK_GL(glDeleteProgram(program));

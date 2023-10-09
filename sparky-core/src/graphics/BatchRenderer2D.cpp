@@ -79,7 +79,7 @@ namespace sparky {
 		const uint32_t color				= renderable->getColor();
 
 		if (m_buffer == nullptr) {
-			std::cout << "m_buffer is NULL" << std::endl;
+			SP_ERROR("[BatchRenderer2D::submit] - m_buffer is null");
 			return;
 		}
 

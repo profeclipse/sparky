@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include "math/vec2.h"
 #include "graphics/Texture.h"
@@ -12,6 +13,7 @@ namespace sparky {
 
 		public:
 			TextureAtlas(Texture* texture,std::vector<std::vector<vec2>>& uvs);
+			TextureAtlas(std::string fileName);
 
 			Texture* getTexture() const			{ return m_texture; }
 			std::vector<vec2>& getUV(int index)

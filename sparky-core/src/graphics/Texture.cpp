@@ -21,7 +21,10 @@ namespace sparky {
 	GLuint Texture::load() {
 		int bpp;
 		BYTE* pixels = load_image(m_file.c_str(),&m_width,&m_height,&bpp);
-		//TODO: log an error
+		if (pixels == nullptr) {
+			SP_ERROR("[Texture::load] - error loading image '{}'",m_file);
+			return 0;
+		}
 
 		GLuint result;
 		CHECK_GL(glGenTextures(1,&result));
@@ -56,16 +59,7 @@ namespace sparky {
 			oFormat = GL_BGRA;
 #endif
 		}
-		SP_TRACE("[Texture::load] - bpp: {}, if: {}, of: {}",bpp,iFormat,oFormat);
-#if 0
-#ifdef __EMSCRIPTEN__
-		CHECK_GL(glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,m_width,m_height,0,GL_RGB,GL_UNSIGNED_BYTE,pixels));
-#else
-		CHECK_GL(glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,m_width,m_height,0,GL_BGR,GL_UNSIGNED_BYTE,pixels));
-#endif
-#else
 		CHECK_GL(glTexImage2D(GL_TEXTURE_2D,0,iFormat,m_width,m_height,0,oFormat,GL_UNSIGNED_BYTE,pixels));
-#endif
 		CHECK_GL(glBindTexture(GL_TEXTURE_2D,0));
 
 		delete[] pixels;
