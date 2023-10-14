@@ -1,10 +1,11 @@
 #include "sparky-utils.h"
 #include "graphics/Texture.h"
+#include <stdio.h>
 
 namespace sparky {
-	Texture::Texture(const std::string& name,const std::string& file)
+	Texture::Texture(const std::string& name,const std::string& file,uint32_t transparent)
 		: m_name(name),m_file(file) {
-			m_tid = load();
+			m_tid = load(transparent);
 		}
 
 	Texture::~Texture() {
@@ -18,7 +19,7 @@ namespace sparky {
 		CHECK_GL(glBindTexture(GL_TEXTURE_2D,0));
 	}
 
-	GLuint Texture::load() {
+	GLuint Texture::load(uint32_t transparent) {
 		int bpp;
 		BYTE* pixels = load_image(m_file.c_str(),&m_width,&m_height,&bpp);
 		if (pixels == nullptr) {
@@ -58,6 +59,13 @@ namespace sparky {
 #else
 			oFormat = GL_BGRA;
 #endif
+			if (transparent != 0x0000000) {
+				uint32_t* data = (uint32_t*)pixels;
+				for (uint32_t i=0 ; i<m_width*m_height ; ++i) {
+					if (data[i] == transparent)
+						data[i] = 0x00000000;
+				}
+			}
 		}
 		CHECK_GL(glTexImage2D(GL_TEXTURE_2D,0,iFormat,m_width,m_height,0,oFormat,GL_UNSIGNED_BYTE,pixels));
 		CHECK_GL(glBindTexture(GL_TEXTURE_2D,0));

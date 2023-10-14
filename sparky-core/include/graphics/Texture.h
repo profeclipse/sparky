@@ -12,7 +12,7 @@ namespace sparky {
 			GLsizei m_width,m_height;
 
 		public:
-			Texture(const std::string& name,const std::string& file);
+			Texture(const std::string& name,const std::string& file,uint32_t transparent=0x00000000);
 			~Texture();
 
 			GLsizei getWidth() const				{ return m_width; }
@@ -26,6 +26,6 @@ namespace sparky {
 			void unbind() const;
 
 		private:
-			GLuint load();
+			GLuint load(uint32_t transparent);
 	};
 }

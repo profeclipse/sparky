@@ -13,25 +13,28 @@ namespace sparky {
 		std::string str = read_file(fileName.c_str());
 
 		if (str.length() == 0) {
-			SP_TRACE("[TextureAtlas::TextureAtlas] - no data or file not found '{}'",fileName);
+			SP_ERROR("[TextureAtlas::TextureAtlas] - no data or file not found '{}'",fileName);
 			return;
 		}
 
-		Json::Value atlas;
+		Json::Value doc;
 		Json::Reader reader;
-		reader.parse(str,atlas);
 
-		std::string name = atlas["atlas"]["name"].asString();
-		std::string textureName = atlas["atlas"]["texture"].asString();
-		std::string textureFileName = atlas["atlas"]["path"].asString();
+		reader.parse(str,doc);
 
-		SP_TRACE("[TextureAtlas::TextureAtlas] - loading texture atlas '{}'",name);
+		Json::Value& atlas = doc["atlas"];
+		std::string name = atlas["name"].asString();
+		std::string textureName = atlas["texture"].asString();
+		std::string textureFileName = atlas["path"].asString();
 
 		Texture* texture = TextureManager::get(textureName);
 		if (texture == nullptr) {
-			SP_TRACE("[TextureAtlas::TextureAtlas] - loading texture '{}' from file '{}'",
-				textureName,textureFileName);
-			texture = new Texture(textureName,textureFileName);
+			uint32_t transparent = 0;
+			if (atlas.isMember("transparent")) {
+				std::string transparentStr = atlas["transparent"].asString();
+				transparent = std::stoul(transparentStr,nullptr,16);
+			}
+			texture = new Texture(textureName,textureFileName,transparent);
 			TextureManager::add(texture);
 		}
 
@@ -44,7 +47,7 @@ namespace sparky {
 		float py = 1.0f / tsize.y;		// one pixel height in texture space
 		float half_py = py * 0.5f;		// 1/2 pixel height in texture space
 
-		Json::Value frames = atlas["atlas"]["frames"];
+		Json::Value& frames = atlas["frames"];
 		for (auto &frame : frames) {
 			int x = frame["x"].asInt();
 			int y = frame["y"].asInt();
@@ -53,10 +56,10 @@ namespace sparky {
 			std::vector<vec2> uvs;
 			vec2 uv;
 
-			float tx = x * px - half_px;
-			float ty = (tsize.y - y) * py - half_py;
-			float tw = float(w) * px + px;
-			float th = float(h) * py + py;
+			float tx = x * px + half_px;
+			float ty = (tsize.y - y) * py + half_py;
+			float tw = float(w) * px - half_px;// + px - half_px;
+			float th = float(h) * py - half_py;// + py - half_py;
 
 			uv.x = tx;
 			uv.y = ty;

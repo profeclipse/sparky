@@ -92,7 +92,6 @@ void Game::initFonts() {
 
 void Game::loadTextures() {
 	TextureManager::add(new Texture("girl1","res/images/test.jpg"));
-	TextureManager::add(new Texture("girl2","res/images/meisa.jpg"));
 	TextureManager::add(new Texture("sprite","res/images/tb.png"));
 
 	m_textureAtlas = new TextureAtlas("res/atlas/pacman.json");
@@ -122,8 +121,6 @@ void Game::loadBackgroundLayer() {
 	m_backgroundLayer = new TileLayer(shader);
 	m_backgroundLayer->add(new Sprite(0.0f,0.0f,m_window->getWidth(),m_window->getHeight(),
 				TextureManager::get("girl1")));
-	m_backgroundLayer->add(new Sprite(100.0f,100.0f,m_window->getWidth()-200,m_window->getHeight()-200,
-				TextureManager::get("girl2")));
 	m_backgroundLayer->add(new Sprite(50.0f,50.0f,64.0f,64.0f,m_textureAtlas->getTexture(),
 				m_textureAtlas->getUV(0)));
 	m_backgroundLayer->add(new Sprite(120.f,50.0f,64.0f,64.0f,m_textureAtlas->getTexture(),

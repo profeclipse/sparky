@@ -2,10 +2,11 @@
 	"atlas": {
 		"name": "pacman",
 		"texture": "pacman",
-		"path": "res/images/pac-man-all.png",
+		"path": "res/images/pacman.png",
+		"transparent": "00000000",
 		"frames": [
-			{ "x":   2, "y":  98, "w": 14, "h": 14 },
-			{ "x":  19, "y":  98, "w": 14, "h": 14 }
+			{ "x":   1, "y":  17, "w": 16, "h": 16 },
+			{ "x":  18, "y":  17, "w": 16, "h": 16 }
 		]
 	}
 }
