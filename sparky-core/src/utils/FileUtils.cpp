@@ -1,11 +1,6 @@
 #include <stdio.h>
-#include <cstddef>
 #include <string>
-#include <unistd.h>
-#include <iostream>
-#include "sparky-gl.h"
-#include "sparky-utils.h"
-#include <Utilities.h>
+#include "utils/Log.h"
 
 namespace sparky {
 	std::string read_file(const char* filepath) {

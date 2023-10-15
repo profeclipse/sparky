@@ -1,11 +1,8 @@
 #include <stdio.h>
-#include <cstddef>
-#include <string>
-#include <unistd.h>
-#include <iostream>
 #include "sparky-gl.h"
-#include "sparky-utils.h"
+#include <FreeImage.h>
 #include <Utilities.h>
+#include "utils/Log.h"
 
 namespace sparky {
 	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height,int* bpp) {
