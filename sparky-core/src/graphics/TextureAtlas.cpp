@@ -5,8 +5,15 @@
 #include "graphics/TextureAtlas.h"
 
 namespace sparky {
-	TextureAtlas::TextureAtlas(Texture* texture,std::vector<std::vector<vec2>>& uvs) :
-		m_texture(texture),m_uvs(uvs) {
+	std::vector<vec2> TextureAtlas::s_defaultUVs = {
+		vec2(0.0f,0.0f),
+		vec2(0.0f,1.0f),
+		vec2(1.0f,1.0f),
+		vec2(1.0f,0.0f)
+	};
+
+	TextureAtlas::TextureAtlas(std::string& name,Texture* texture,std::vector<std::vector<vec2>>& uvs) :
+		m_name(name),m_texture(texture),m_uvs(uvs) {
 	}
 
 	TextureAtlas::TextureAtlas(std::string fileName) {
@@ -23,7 +30,7 @@ namespace sparky {
 		reader.parse(str,doc);
 
 		Json::Value& atlas = doc["atlas"];
-		std::string name = atlas["name"].asString();
+		m_name = atlas["name"].asString();
 		std::string textureName = atlas["texture"].asString();
 		std::string textureFileName = atlas["path"].asString();
 
@@ -72,6 +79,11 @@ namespace sparky {
 			uvs.push_back(uv);
 
 			m_uvs.push_back(uvs);
+
+			if (frame.isMember("name")) {
+				const std::string& frameName = frame["name"].asString();
+				m_frames[frameName] = m_uvs.size() - 1;
+			}
 		}
 	}
 }

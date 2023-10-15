@@ -66,10 +66,11 @@ namespace sparky {
 
 			void setPosition(vec3& position)		{ m_position = position; }
 			void setSize(vec2& size)				{ m_size = size; }
+			void setUV(std::vector<vec2>& uv)		{ m_uv = uv; }
 
 			const vec3& getPosition() const			{ return m_position; }
 			const vec2& getSize() const				{ return m_size; }
-			uint32_t getColor() const						{ return m_color; }
+			uint32_t getColor() const				{ return m_color; }
 			const std::vector<vec2>& getUV() const	{ return m_uv; }
 			GLuint getTID() const			{ return m_texture ? m_texture->getID() : 0; }
 

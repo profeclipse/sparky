@@ -10,6 +10,8 @@ class Game : public sparky::Application {
 		sparky::Label*	m_fpsLabel;
 		sparky::Sprite* m_sprite;
 		sparky::TextureAtlas* m_textureAtlas;
+		sparky::Animation2D* m_blinkyAnimation;
+		sparky::AnimatedSprite* m_blinky;
 
 		static const std::string SHADER_DIR;
 
@@ -25,8 +27,9 @@ class Game : public sparky::Application {
 		void initWindow();
 		void initFonts();
 		void loadTextures();
+		void loadAnimations();
 		void loadLayers();
 		void loadBackgroundLayer();
 		void loadGUILayer();
-		void loadAtlas();
+		sparky::Animation2D* loadAnimation(const std::string& file);
 };

@@ -1,0 +1,42 @@
+{
+	"atlas": {
+		"name": "pacman",
+		"texture": "pacman",
+		"path": "res/images/pacman.png",
+		"transparent": "00000000",
+		"frames": [
+			{ "name": "blinkyl1", "x":   1, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyl2", "x":  18, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyr1", "x":  35, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyr2", "x":  52, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyu1", "x":  69, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyu2", "x":  86, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyd1", "x": 103, "y":  17, "w": 16, "h": 16 },
+			{ "name": "blinkyd2", "x": 120, "y":  17, "w": 16, "h": 16 },
+			{ "name": "inkyl1",   "x":   1, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyl2",   "x":  18, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyr1",   "x":  35, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyr2",   "x":  52, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyu1",   "x":  69, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyu2",   "x":  86, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyd1",   "x": 103, "y":  34, "w": 16, "h": 16 },
+			{ "name": "inkyd2",   "x": 120, "y":  34, "w": 16, "h": 16 },
+			{ "name": "pinkyl1",  "x":   1, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyl2",  "x":  18, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyr1",  "x":  35, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyr2",  "x":  52, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyu1",  "x":  69, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyu2",  "x":  86, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyd1",  "x": 103, "y":  51, "w": 16, "h": 16 },
+			{ "name": "pinkyd2",  "x": 120, "y":  51, "w": 16, "h": 16 },
+			{ "name": "clydel1",  "x":   1, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clydel2",  "x":  18, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clyder1",  "x":  35, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clyder2",  "x":  52, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clydeu1",  "x":  69, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clydeu2",  "x":  86, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clyded1",  "x": 103, "y":  68, "w": 16, "h": 16 },
+			{ "name": "clyded2",  "x": 120, "y":  68, "w": 16, "h": 16 }
+		]
+	}
+}

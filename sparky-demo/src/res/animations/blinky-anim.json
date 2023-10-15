@@ -1,0 +1,65 @@
+{
+	"animation": {
+		"name": "blinky",
+		"atlas": "pacman",
+		"path": "res/atlas/pacman-atlas.json",
+		"sequences": [
+			{
+				"name": "blinky-left",
+				"loop": true,
+				"frames": [
+					{
+						"name": "blinkyl1",
+						"duration": 30
+					},
+					{
+						"name": "blinkyl2",
+						"duration": 30
+					}
+				]
+			},
+			{
+				"name": "blinky-right",
+				"loop": true,
+				"frames": [
+					{
+						"name": "blinkyr1",
+						"duration": 30
+					},
+					{
+						"name": "blinkyr2",
+						"duration": 30
+					}
+				]
+			},
+			{
+				"name": "blinky-up",
+				"loop": true,
+				"frames": [
+					{
+						"name": "blinkyu1",
+						"duration": 30
+					},
+					{
+						"name": "blinkyu2",
+						"duration": 30
+					}
+				]
+			},
+			{
+				"name": "blinky-down",
+				"loop": true,
+				"frames": [
+					{
+						"name": "inkyd1",
+						"duration": 30
+					},
+					{
+						"name": "inkyd2",
+						"duration": 30
+					}
+				]
+			}
+		]
+	}
+}
