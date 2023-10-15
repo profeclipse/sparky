@@ -2,6 +2,8 @@
 #include "sparky-gl.h"
 #include "sparky-utils.h"
 #include "graphics/FontManager.h"
+#include "graphics/TextureManager.h"
+#include "graphics/TextureAtlasManager.h"
 #include "audio/SoundManager.h"
 #include "application/Window.h"
 
@@ -21,6 +23,8 @@ namespace sparky {
 	Window::~Window() {
 		FontManager::clear();
 		SoundManager::clear();
+		TextureAtlasManager::clear();
+		TextureManager::clear();
 		glfwTerminate();
 	}
 

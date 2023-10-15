@@ -10,11 +10,11 @@
 				"frames": [
 					{
 						"name": "blinkyl1",
-						"duration": 30
+						"duration": 15
 					},
 					{
 						"name": "blinkyl2",
-						"duration": 30
+						"duration": 15
 					}
 				]
 			},
@@ -24,11 +24,11 @@
 				"frames": [
 					{
 						"name": "blinkyr1",
-						"duration": 30
+						"duration": 15
 					},
 					{
 						"name": "blinkyr2",
-						"duration": 30
+						"duration": 15
 					}
 				]
 			},
@@ -38,11 +38,11 @@
 				"frames": [
 					{
 						"name": "blinkyu1",
-						"duration": 30
+						"duration": 15
 					},
 					{
 						"name": "blinkyu2",
-						"duration": 30
+						"duration": 15
 					}
 				]
 			},
@@ -52,11 +52,11 @@
 				"frames": [
 					{
 						"name": "inkyd1",
-						"duration": 30
+						"duration": 15
 					},
 					{
 						"name": "inkyd2",
-						"duration": 30
+						"duration": 15
 					}
 				]
 			}

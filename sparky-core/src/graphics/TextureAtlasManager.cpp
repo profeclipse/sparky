@@ -18,6 +18,7 @@ namespace sparky {
 	}
 
 	void TextureAtlasManager::clear() {
+		SP_TRACE("[TextureAtlasManager::clear] - deleting texture atlases");
 		for (size_t i=0 ; i<s_atlases.size() ; ++i) {
 			delete s_atlases[i];
 		}

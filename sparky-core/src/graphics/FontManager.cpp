@@ -1,3 +1,4 @@
+#include "utils/Log.h"
 #include "graphics/FontManager.h"
 
 namespace sparky {
@@ -44,6 +45,7 @@ namespace sparky {
 	}
 
 	void FontManager::clear() {
+		SP_TRACE("[FontManager::clear] - deleting fonts");
 		for (size_t i=0 ; i<s_fonts.size() ; ++i) {
 			delete s_fonts[i];
 		}

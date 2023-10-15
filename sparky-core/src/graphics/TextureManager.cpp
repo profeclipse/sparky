@@ -1,3 +1,4 @@
+#include "utils/Log.h"
 #include "graphics/TextureManager.h"
 
 namespace sparky {
@@ -18,6 +19,7 @@ namespace sparky {
 	}
 
 	void TextureManager::clear() {
+		SP_TRACE("[TextureManager::clear] - deleting textures");
 		for (size_t i=0 ; i<s_textures.size() ; ++i) {
 			delete s_textures[i];
 		}

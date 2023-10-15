@@ -18,11 +18,8 @@ Game::Game() {
 }
 
 Game::~Game() {
-	SP_TRACE("[Game] dtor");
 	delete m_backgroundLayer;
-	SP_TRACE("[Game] dtor - deleted m_backgroundLayer");
 	delete m_guiLayer;
-	SP_TRACE("[Game] dtor - deleted m_guiLayer");
 }
 
 void Game::init() {
@@ -53,33 +50,13 @@ void Game::tick() {
 }
 
 void Game::update(const TimeStep& ts) {
-	static float xdir = 1.0f;
-	static float ydir = 1.0f;
-	static float speed = 120.0f;	// pixels per second
-	float elapsed = ts.getSeconds();
-
-	const vec2& size = m_sprite->getSize();
-	vec3 pos = m_sprite->getPosition();
-
-	pos.x += xdir * speed * elapsed;
-	pos.y += ydir * speed * elapsed;
-	if (((pos.x+size.x) > 960) || (pos.x < 0)) {
-		xdir = -xdir;
-		pos.x += xdir * speed * elapsed;
-	}
-	if (((pos.y+size.y) > 540) || (pos.y < 0)) {
-		ydir = -ydir;
-		pos.y += ydir * speed * elapsed;
-	}
-
-	m_sprite->setPosition(pos);
-
 	m_blinky->update();
+
 	vec3 position = m_blinky->getPosition();
-	const vec2& blinkySize = m_blinky->getSize();
+	const vec2& size = m_blinky->getSize();
 
 	if (position.x > 960) {
-		position.x = -blinkySize.x;
+		position.x = -size.x;
 		m_blinky->setPosition(position);
 	}
 }
@@ -212,14 +189,11 @@ void Game::loadBackgroundLayer() {
 				m_textureAtlas->getUV("clyded2")));
 
 	m_blinky = new AnimatedSprite(50.0f,140.0f,64.0f,64.0f,m_blinkyAnimation);
-	m_blinky->setSequence("blinky-left");
+	m_blinky->setSequence("blinky-right");
 	m_blinky->setAnimating(true);
 	m_blinky->setDirection(vec2(1.0f,0.0f));
 	m_blinky->setSpeed(1.0f);
 	m_backgroundLayer->add(m_blinky);
-
-	m_sprite = new Sprite(200.0f,150.0f,16.0f,16.0f,TextureManager::get("sprite"));
-	m_backgroundLayer->add(m_sprite);
 }
 
 void Game::loadGUILayer() {

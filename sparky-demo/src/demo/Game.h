@@ -8,7 +8,6 @@ class Game : public sparky::Application {
 		sparky::Layer*	m_backgroundLayer;
 		sparky::Layer*	m_guiLayer;
 		sparky::Label*	m_fpsLabel;
-		sparky::Sprite* m_sprite;
 		sparky::TextureAtlas* m_textureAtlas;
 		sparky::Animation2D* m_blinkyAnimation;
 		sparky::AnimatedSprite* m_blinky;
