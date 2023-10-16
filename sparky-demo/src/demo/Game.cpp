@@ -15,6 +15,7 @@ const std::string Game::SHADER_DIR = "res/shaders/gl33/";
 #endif
 
 Game::Game() {
+	Log::setLogLevel(LogLevel::TRACE);
 }
 
 Game::~Game() {
