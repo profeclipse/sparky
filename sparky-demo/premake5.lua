@@ -90,7 +90,7 @@ project "sparky-demo"
 			"ogg",
 			"spdlog"
 		}
-	
+
 	filter {}
 
 	files {
