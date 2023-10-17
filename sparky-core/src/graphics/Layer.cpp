@@ -2,8 +2,9 @@
 #include "graphics/BatchRenderer2D.h"
 
 namespace sparky {
-	Layer::Layer(Renderer2D* renderer,Shader* shader,mat4 projectionMatrix) 
-		: m_renderer(renderer),m_shader(shader),m_projectionMatrix(projectionMatrix) {
+	Layer::Layer(std::shared_ptr<Renderer2D> renderer,std::shared_ptr<Shader> shader,
+		mat4 projectionMatrix) :
+		m_renderer(renderer),m_shader(shader),m_projectionMatrix(projectionMatrix) {
 			m_shader->enable();
 
 			m_shader->setUniformMat4("pr_matrix",m_projectionMatrix);
@@ -18,8 +19,6 @@ namespace sparky {
 		}
 
 	Layer::~Layer() {
-		delete m_shader;
-		delete m_renderer;
 		for (size_t i=0 ; i<m_objects.size() ; ++i) {
 			delete m_objects[i];
 		}
@@ -34,7 +33,7 @@ namespace sparky {
 
 		m_renderer->begin();
 		for (const Renderable2D* object : m_objects) {
-			object->submit(m_renderer);
+			object->submit(m_renderer.get());
 		}
 		m_renderer->end();
 

@@ -9,12 +9,13 @@
 namespace sparky {
 	class Layer {
 		protected:
-			Renderer2D* m_renderer;
+			std::shared_ptr<Renderer2D> m_renderer;
 			std::vector<Renderable2D*> m_objects;
-			Shader* m_shader;
+			std::shared_ptr<Shader> m_shader;
 			mat4 m_projectionMatrix;
 		protected:
-			Layer(Renderer2D* renderer,Shader* shader,mat4 projectionMatrix);
+			Layer(std::shared_ptr<Renderer2D> renderer,std::shared_ptr<Shader> shader,
+					mat4 projectionMatrix);
 		public:
 			virtual ~Layer();
 			virtual void add(Renderable2D* object);

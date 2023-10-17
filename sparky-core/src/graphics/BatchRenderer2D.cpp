@@ -8,7 +8,6 @@ namespace sparky {
 	}
 
 	BatchRenderer2D::~BatchRenderer2D() {
-		delete m_IBO;
 		CHECK_GL(glDeleteBuffers(1,&m_VBO));
 	}
 
@@ -37,7 +36,7 @@ namespace sparky {
 
 		CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER,0));
 
-		GLuint *indices = new GLuint[INDICES_SIZE];
+		auto indices = std::make_unique<GLuint[]>(INDICES_SIZE);
 
 		for (uint32_t i=0,offset=0 ; i<INDICES_SIZE ; i+=6,offset+=4) {
 			indices[i+0] = offset + 0;
@@ -48,21 +47,19 @@ namespace sparky {
 			indices[i+5] = offset + 0;
 		}
 
-		m_IBO = new IndexBuffer(indices,INDICES_SIZE);
-
-		delete[] indices;
+		m_IBO = std::make_unique<IndexBuffer>(indices.get(),INDICES_SIZE);
 
 		CHECK_GL(glBindVertexArray(0));
 
 #ifdef __EMSCRIPTEN__
-		m_bufferBase = new VertexData[MAX_OBJECTS*4];
+		m_bufferBase = std::make_unique<VertexData[]>(MAX_OBJECTS*4);
 #endif
 	}
 
 	void BatchRenderer2D::begin() {
 		CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER,m_VBO));
 #ifdef __EMSCRIPTEN__
-		m_buffer = m_bufferBase;
+		m_buffer = m_bufferBase.get();
 #else
 		m_buffer = (VertexData*)glMapBuffer(GL_ARRAY_BUFFER,GL_WRITE_ONLY);
 		CHECK_GL_STATUS();
@@ -220,7 +217,7 @@ namespace sparky {
 	void BatchRenderer2D::end() {
 		CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER,m_VBO));
 #ifdef __EMSCRIPTEN__
-		CHECK_GL(glBufferSubData(GL_ARRAY_BUFFER,0,(m_buffer-m_bufferBase)*VERTEX_SIZE,m_bufferBase));
+		CHECK_GL(glBufferSubData(GL_ARRAY_BUFFER,0,(m_buffer-m_bufferBase.get())*VERTEX_SIZE,m_bufferBase.get()));
 #else
 		CHECK_GL(glUnmapBuffer(GL_ARRAY_BUFFER));
 		m_buffer = nullptr;

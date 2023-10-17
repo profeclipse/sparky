@@ -22,11 +22,11 @@ namespace sparky {
 		private:
 			GLuint m_VAO;
 			GLuint m_VBO;
-			IndexBuffer* m_IBO;
+			std::unique_ptr<IndexBuffer> m_IBO;
 			GLsizei m_indexCount;
 			VertexData* m_buffer;
 #ifdef __EMSCRIPTEN__
-			VertexData* m_bufferBase;
+			std::unique_ptr<VertexData[]> m_bufferBase;
 #endif
 			std::vector<uint32_t> m_textureSlots;
 
