@@ -64,7 +64,7 @@ namespace sparky {
 			vec2 uv;
 
 			float tx = x * px + half_px;
-			float ty = (tsize.y - y) * py + half_py;
+			float ty = (tsize.y - y - 1.0f) * py + half_py;
 			float tw = float(w) * px - half_px;// + px - half_px;
 			float th = float(h) * py - half_py;// + py - half_py;
 
