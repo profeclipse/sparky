@@ -28,6 +28,16 @@ namespace sparky {
 		m_objects.push_back(object);
 	}
 
+	void Layer::remove(Renderable2D* object) {
+		for (auto it=m_objects.begin() ; it!=m_objects.end() ; ++it) {
+			if (*it == object) {
+				m_objects.erase(it);
+				delete object;
+				break;
+			}
+		}
+	}
+
 	void Layer::render() {
 		m_shader->enable();
 

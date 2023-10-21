@@ -19,6 +19,7 @@ namespace sparky {
 		public:
 			virtual ~Layer();
 			virtual void add(Renderable2D* object);
+			virtual void remove(Renderable2D* object);
 			virtual void render();
 
 			const std::vector<Renderable2D*>& getObjects() const	{ return m_objects; }
