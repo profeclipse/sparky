@@ -11,6 +11,11 @@ project "sparky-core"
 		"SPARKY_DEBUG"
 	}
 
+	buildoptions {
+		"-finline-functions",
+		"-O3"
+	}
+
 	includedirs {
 		"include",
 		"%{IncludeDir.freeimage}",

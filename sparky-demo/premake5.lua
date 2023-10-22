@@ -7,6 +7,15 @@ project "sparky-demo"
 
 	optimize "On"
 
+	buildoptions {
+		"-finline-functions",
+		"-O3"
+	}
+
+	linkoptions {
+		"-O3"
+	}
+
 	includedirs {
 		"%{wks.location}/../sparky-core/include",
 		"%{IncludeDir.spdlog}",
