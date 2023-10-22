@@ -3,6 +3,7 @@
 #include <vector>
 #include "sparky-gl.h"
 #include "sparky-math.h"
+#include "utils/TimerUtils.h"
 #include "graphics/IndexBuffer.h"
 #include "graphics/VertexArray.h"
 #include "graphics/Shader.h"
@@ -52,6 +53,8 @@ namespace sparky {
 			virtual void submit(Renderer2D* renderer) const {
 				renderer->submit(this);
 			}
+
+			virtual void update(const TimeStep& ts) {}
 
 			void setColor(unsigned int color) { m_color = color; }
 			void setColor(const vec4& color)

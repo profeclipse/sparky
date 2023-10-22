@@ -25,4 +25,10 @@ namespace sparky {
 
 		renderer->popTransform();
 	}
+
+	void Group::update(const TimeStep& ts) {
+		for (Renderable2D* child : m_children) {
+			child->update(ts);
+		}
+	}
 }

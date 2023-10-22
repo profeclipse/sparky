@@ -27,12 +27,12 @@ namespace sparky {
 		//SP_TRACE("[AnimatedSprite::setSequence] - sequence '{}', duration {}",name,m_updates);
 	}
 
-	void AnimatedSprite::update() {
-		updateAnimation();
-		updatePosition();
+	void AnimatedSprite::update(const TimeStep& ts) {
+		updateAnimation(ts);
+		updatePosition(ts);
 	}
 
-	void AnimatedSprite::updateAnimation() {
+	void AnimatedSprite::updateAnimation(const TimeStep& ts) {
 		if (m_updates-- > 0) {
 			return;
 		}
@@ -57,7 +57,7 @@ namespace sparky {
 		setUV(frame.m_uv);
 	}
 
-	void AnimatedSprite::updatePosition() {
+	void AnimatedSprite::updatePosition(const TimeStep& ts) {
 		vec2 vector = m_direction * m_speed;
 		m_position.x += vector.x;
 		m_position.y += vector.y;

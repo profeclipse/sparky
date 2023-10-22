@@ -20,7 +20,7 @@ namespace sparky {
 			AnimatedSprite(float x,float y,float z,float width,float height,Animation2D* animation);
 
 			void setSequence(const std::string& name);
-			virtual void update();
+			virtual void update(const TimeStep& ts) override;
 
 			const vec2& getDirection() const			{ return m_direction; }
 			void setDirection(const vec2& direction)	{ m_direction = direction; }
@@ -30,7 +30,7 @@ namespace sparky {
 			void setAnimating(bool animating)			{ m_animating = animating; }
 
 		protected:
-			void updateAnimation();
-			void updatePosition();
+			virtual void updateAnimation(const TimeStep& ts);
+			virtual void updatePosition(const TimeStep& ts);
 	};
 }

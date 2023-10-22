@@ -50,4 +50,10 @@ namespace sparky {
 		m_renderer->flush();
 		m_shader->disable();
 	}
+
+	void Layer::update(const TimeStep& ts) {
+		for (Renderable2D* object : m_objects) {
+			object->update(ts);
+		}
+	}
 }

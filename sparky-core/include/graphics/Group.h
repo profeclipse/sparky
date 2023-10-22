@@ -15,5 +15,6 @@ namespace sparky {
 
 			void add(Renderable2D* child);
 			void submit(Renderer2D* renderer) const override;
+			virtual void update(const TimeStep& ts) override;
 	};
 }

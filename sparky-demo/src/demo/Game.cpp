@@ -51,7 +51,9 @@ void Game::tick() {
 }
 
 void Game::update(const TimeStep& ts) {
-	m_blinky->update();
+	m_backgroundLayer->update(ts);
+	m_guiLayer->update(ts);
+	//m_blinky->update();
 
 	vec3 position = m_blinky->getPosition();
 	const vec2& size = m_blinky->getSize();

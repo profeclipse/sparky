@@ -3,6 +3,7 @@
 #include <vector>
 #include "sparky-base.h"
 #include "sparky-gl.h"
+#include "utils/TimerUtils.h"
 #include "graphics/Renderer2D.h"
 #include "graphics/Renderable2D.h"
 #include "graphics/Shader.h"
@@ -22,6 +23,7 @@ namespace sparky {
 			virtual void add(Renderable2D* object);
 			virtual void remove(Renderable2D* object);
 			virtual void render();
+			virtual void update(const TimeStep& ts);
 
 			const std::vector<Renderable2D*>& getObjects() const	{ return m_objects; }
 	};
