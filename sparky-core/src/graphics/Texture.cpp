@@ -1,3 +1,4 @@
+#include "sparky-base.h"
 #include "sparky-utils.h"
 #include "graphics/Texture.h"
 #include <stdio.h>
@@ -21,7 +22,7 @@ namespace sparky {
 
 	GLuint Texture::load(uint32_t transparent) {
 		int bpp;
-		auto pixels = (std::unique_ptr<BYTE>)load_image(m_file.c_str(),&m_width,&m_height,&bpp);
+		auto pixels = (Scope<BYTE>)load_image(m_file.c_str(),&m_width,&m_height,&bpp);
 		if (pixels == nullptr) {
 			SP_ERROR("[Texture::load] - error loading image '{}'",m_file);
 			return 0;

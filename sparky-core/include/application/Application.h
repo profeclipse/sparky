@@ -1,5 +1,6 @@
 #pragma once
 
+#include "sparky-base.h"
 #include "application/Window.h"
 #include "utils/TimerUtils.h"
 
@@ -7,13 +8,13 @@ namespace sparky {
 
 	class Application {
 		private:
-			std::unique_ptr<Timer> m_timer;
+			Scope<Timer> m_timer;
 			uint32_t m_framesPerSecond;
 			uint32_t m_updatesPerSecond;
 			float m_frameTime;
 
 		protected:
-			std::unique_ptr<Window> m_window;
+			Scope<Window> m_window;
 
 #ifdef __EMSCRIPTEN__
 			static void dispatchMain(void* fp);

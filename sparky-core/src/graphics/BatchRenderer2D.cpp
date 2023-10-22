@@ -1,5 +1,6 @@
-#include "graphics/BatchRenderer2D.h"
+#include "sparky-base.h"
 #include "sparky-utils.h"
+#include "graphics/BatchRenderer2D.h"
 #include <freetype-gl.h>
 
 namespace sparky {
@@ -36,7 +37,7 @@ namespace sparky {
 
 		CHECK_GL(glBindBuffer(GL_ARRAY_BUFFER,0));
 
-		auto indices = std::make_unique<GLuint[]>(INDICES_SIZE);
+		auto indices = CreateScope<GLuint[]>(INDICES_SIZE);
 
 		for (uint32_t i=0,offset=0 ; i<INDICES_SIZE ; i+=6,offset+=4) {
 			indices[i+0] = offset + 0;
@@ -47,12 +48,12 @@ namespace sparky {
 			indices[i+5] = offset + 0;
 		}
 
-		m_IBO = std::make_unique<IndexBuffer>(indices.get(),INDICES_SIZE);
+		m_IBO = CreateScope<IndexBuffer>(indices.get(),INDICES_SIZE);
 
 		CHECK_GL(glBindVertexArray(0));
 
 #ifdef __EMSCRIPTEN__
-		m_bufferBase = std::make_unique<VertexData[]>(MAX_OBJECTS*4);
+		m_bufferBase = CreateScope<VertexData[]>(MAX_OBJECTS*4);
 #endif
 	}
 

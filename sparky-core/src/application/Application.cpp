@@ -17,7 +17,7 @@ namespace sparky {
 
 	Window* Application::createWindow(const char *name, int width, int height) {
 		Window *window = new Window(name,width,height);
-		m_window = (std::unique_ptr<Window>)window;
+		m_window = (Scope<Window>)window;
 
 		return window;
 	}
@@ -28,7 +28,7 @@ namespace sparky {
 	}
 
 	void Application::run() {
-		m_timer = std::make_unique<Timer>();
+		m_timer = CreateScope<Timer>();
 		float timer = 0.0f;
 		float updateTimer = 0.0f;
 		float updateTick = 1.0f / 60.0f;

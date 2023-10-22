@@ -2,16 +2,16 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace sparky {
-	std::shared_ptr<spdlog::logger> Log::s_logger;
+	Ref<spdlog::logger> Log::s_logger;
 
 	void Log::init() {
 #ifdef __EMSCRIPTEN__
-		auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+		auto sink = CreateRef<spdlog::sinks::stdout_color_sink_st>();
 #else
-		auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+		auto sink = CreateRef<spdlog::sinks::stdout_color_sink_mt>();
 #endif
 		sink->set_pattern("%^[%T] %n: %v%$");
-		s_logger = std::make_shared<spdlog::logger>("SPARKY",sink);
+		s_logger = CreateRef<spdlog::logger>("SPARKY",sink);
 		spdlog::register_logger(s_logger);
 		s_logger->set_level(spdlog::level::warn);
 		s_logger->flush_on(spdlog::level::trace);

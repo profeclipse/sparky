@@ -2,7 +2,7 @@
 #include "graphics/BatchRenderer2D.h"
 
 namespace sparky {
-	Layer::Layer(std::shared_ptr<Renderer2D> renderer,std::shared_ptr<Shader> shader,
+	Layer::Layer(Ref<Renderer2D> renderer,Ref<Shader> shader,
 		mat4 projectionMatrix) :
 		m_renderer(renderer),m_shader(shader),m_projectionMatrix(projectionMatrix) {
 			m_shader->enable();

@@ -113,7 +113,7 @@ void Game::loadBackgroundLayer() {
 	std::string fragShaderPath = SHADER_DIR + "basicnl.frag";
 #endif
 
-	auto shader = std::make_shared<Shader>(vertShaderPath.c_str(),fragShaderPath.c_str());
+	auto shader = CreateRef<Shader>(vertShaderPath.c_str(),fragShaderPath.c_str());
 #ifdef __EMSCRIPTEN__
 	shader->enable();
 	shader->setUniformMat4("vw_matrix",mat4::identity());
@@ -201,7 +201,7 @@ void Game::loadGUILayer() {
 	std::string vertShaderPath = SHADER_DIR + "basic.vert";
 	std::string fragShaderPath = SHADER_DIR + "basicnl.frag";
 
-	auto shader = std::make_shared<Shader>(vertShaderPath.c_str(),fragShaderPath.c_str());
+	auto shader = CreateRef<Shader>(vertShaderPath.c_str(),fragShaderPath.c_str());
 #ifdef __EMSCRIPTEN__
 	shader->enable();
 	shader->setUniformMat4("vw_matrix",mat4::identity());

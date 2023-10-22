@@ -1,5 +1,6 @@
 #pragma once
 
+#include "sparky-base.h"
 #include "graphics/IndexBuffer.h"
 #include "graphics/Renderable2D.h"
 #include "graphics/Renderer2D.h"
@@ -22,11 +23,11 @@ namespace sparky {
 		private:
 			GLuint m_VAO;
 			GLuint m_VBO;
-			std::unique_ptr<IndexBuffer> m_IBO;
+			Scope<IndexBuffer> m_IBO;
 			GLsizei m_indexCount;
 			VertexData* m_buffer;
 #ifdef __EMSCRIPTEN__
-			std::unique_ptr<VertexData[]> m_bufferBase;
+			Scope<VertexData[]> m_bufferBase;
 #endif
 			std::vector<uint32_t> m_textureSlots;
 

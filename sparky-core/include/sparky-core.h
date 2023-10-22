@@ -3,6 +3,7 @@
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #endif
+#include "sparky-base.h"
 #include "sparky-gl.h"
 #include "sparky-math.h"
 #include "sparky-graphics.h"

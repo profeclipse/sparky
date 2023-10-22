@@ -1,6 +1,7 @@
 #pragma once
 
 #include <spdlog/spdlog.h>
+#include "sparky-base.h"
 
 namespace sparky {
 	enum class LogLevel {
@@ -15,12 +16,12 @@ namespace sparky {
 		public:
 			static void init();
 
-			static std::shared_ptr<spdlog::logger>& GetLogger()	{ return s_logger; }
+			static Ref<spdlog::logger>& GetLogger()	{ return s_logger; }
 
 			static void setLogLevel(LogLevel level);
 
 		private:
-			static std::shared_ptr<spdlog::logger> s_logger;
+			static Ref<spdlog::logger> s_logger;
 	};
 }
 

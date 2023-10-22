@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string>
+#include "sparky-base.h"
 #include "utils/Log.h"
 
 namespace sparky {
@@ -12,7 +13,7 @@ namespace sparky {
 
 		fseek(file,0,SEEK_END);
 		size_t length = ftell(file);
-		auto data = std::make_unique<char[]>(length+1);
+		auto data = CreateScope<char[]>(length+1);
 		memset(data.get(),0,length+1);
 		fseek(file,0,SEEK_SET);
 		fread(data.get(),1,length,file);
