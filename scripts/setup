@@ -8,28 +8,40 @@ function findexe {
 	exe=$1
 
 	printf "Searching for ${exe}..."
-	for dir in $(echo ${PATH} | sed 's/:/\n/g')
-	do
-		if [ -x "${dir}/${exe}" ]
-		then
-			printf " found at ${dir}\n"
-			return 0
-		fi
-	done
-
-	printf " not found!\n"
-	return 1
+	#for dir in $(echo ${PATH} | sed 's/:/\n/g')
+	#do
+	#	if [ -x "${dir}/${exe}" ]
+	#	then
+	#		printf " found at ${dir}\n"
+	#		return 0
+	#	fi
+	#done
+	dir=$(/usr/bin/which ${exe} 2>/dev/null)
+	if [ "${dir}" == "" ]
+	then
+		printf " not found!\n"
+		return 1
+	else
+		printf " found at ${dir}\n"
+		return 0
+	fi
 }
 
-findexe premake5 || exit 1
+findexe cmake || exit 1
 findexe emmake   || exit 1
 
 cd "${PROJDIR}"
 
+#options=""
 if [ "$1" == "clean" ]
 then
+	#options="--fresh"
 	rm -rf build/*
+	rm -rf embuild/*
+	shift
 fi
-premake5 gmake2
+
+cmake ${options} -S . -B build $@
+emcmake cmake ${options} -S . -B embuild $@
 
 exit 0

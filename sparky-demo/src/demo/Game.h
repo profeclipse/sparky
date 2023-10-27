@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "sparky-core.h"
+#include "sparky.h"
 
 class Game : public sparky::Application {
 	public:

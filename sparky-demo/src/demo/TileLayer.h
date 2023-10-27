@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sparky-core.h"
+#include "sparky.h"
 
 class TileLayer : public sparky::Layer {
 	public:
