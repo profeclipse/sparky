@@ -43,7 +43,7 @@ endif()
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/cmake/emconfig.cmake.in
+	${CMAKE_CURRENT_SOURCE_DIR}/cmake/${pkgname}-config.cmake.in
 	"${CMAKE_CURRENT_BINARY_DIR}/${pkgname}-config.cmake"
 	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${pkgname}
 	)
