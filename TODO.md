@@ -13,3 +13,5 @@ to include any non-sparky headers in the install package.
     - Font.h - freetype-gl.h
     - ImageUtils.h - freeimage.h
     - LogUtils.h - spdlog.h
+10. Write documentation!
+
