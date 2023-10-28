@@ -11,12 +11,12 @@ The engine currently only spports MacOS and WebGL. Linux and Windows will be add
 
 You will need CMake version 3.27.6 or greater and Emscripten to build/run the project.
 
-- CMake
-    - [Homepage](https://cmake.org)
-    - [Download](https://cmake.org/download/)
-- Emscripten
-    - [Homepage](https://emscripten.org)
-    - [Download](https://emscripten.org/docs/getting_started/downloads.html)
+CMake
+- [Homepage](https://cmake.org)
+- [Download](https://cmake.org/download/)
+Emscripten
+- [Homepage](https://emscripten.org)
+- [Download](https://emscripten.org/docs/getting_started/downloads.html)
 
 ### Initial Setup
 
@@ -59,9 +59,9 @@ To build the enigne and demo for all supported platforms:
 scripts/build -p all
 ```
 
-### Running the demo
+## Running the demo
 
-#### Running the Native Demo
+### Running the Native Demo
 
 ```
 cd build/sparky-demo
@@ -70,16 +70,16 @@ cd build/sparky-demo
 
 (The demo depends on the resource directory `res` being in the current directory.)
 
-#### Running the Web Application
+### Running the Web Application
 
-##### Run with `emrun`
+#### Run with `emrun`
 
 ```
 cd embuild/sparky-demo
 emrun sparky-demo.html
 ```
 
-##### Using python as a web server
+#### Using python as a web server
 
 Start the web server:
 - Python 2: `python -m SimpleHTTPServer`
