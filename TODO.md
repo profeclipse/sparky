@@ -10,6 +10,6 @@ TODO List:
 8. Make release and debug builds actually do release and debug builds.
 9. Consider removing non-sparky types and includes from public headers. This should remove the need
 to include any non-sparky headers in the install package.
-  - Font.h - freetype-gl.h
-  - ImageUtils.h - freeimage.h
-  - LogUtils.h - spdlog.h
+    - Font.h - freetype-gl.h
+    - ImageUtils.h - freeimage.h
+    - LogUtils.h - spdlog.h
