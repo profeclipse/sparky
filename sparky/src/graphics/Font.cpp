@@ -1,5 +1,6 @@
 #include "utils/Log.h"
 #include "graphics/Font.h"
+#include <freetype-gl.h>
 
 namespace sparky {
 	Font::Font(std::string name,std::string filename,uint16_t size)
@@ -11,6 +12,8 @@ namespace sparky {
 			SP_ERROR("[Font::Font] - texture_atlas_new failed");
 		if (m_ftFont == nullptr)
 			SP_ERROR("[Font::Font] - texture_font_new_from_file failed");
+
+		m_id = m_ftAtlas->id;
 	}
 
 	Font::~Font() {

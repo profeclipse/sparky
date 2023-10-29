@@ -25,19 +25,6 @@ add_library(sparky::freetype-gl ALIAS freetype-gl)
 
 target_include_directories(freetype-gl PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-	$<INSTALL_INTERFACE:include/${pkgname}/freetype-gl/include>
-	)
-
-target_sources(freetype-gl PUBLIC
-	FILE_SET HEADERS
-	FILES
-	include/texture-atlas.h
-	include/freetype-gl.h
-	include/opengl.h
-	include/texture-font.h
-	include/vec234.h
-	include/vector.h
-	include/platform.h
 	)
 
 target_compile_options(freetype-gl PRIVATE
@@ -51,5 +38,4 @@ target_link_libraries(freetype-gl PUBLIC
 install(TARGETS freetype-gl
 	EXPORT ${pkgname}
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${pkgname}
-	FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${pkgname}/freetype-gl
 	)

@@ -45,7 +45,7 @@ do
 		dir="build"
 	fi
 
-	cmake --build ${dir} -j4 $@
+	cmake --build ${dir} $@
 	ret=$?
 	if [ ${ret} -ne 0 ]
 	then

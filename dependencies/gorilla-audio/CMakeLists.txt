@@ -19,20 +19,6 @@ target_compile_definitions(gorilla PRIVATE
 
 target_include_directories(gorilla PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-	$<INSTALL_INTERFACE:include/${pkgname}/gorilla-audio/include>
-	)
-
-target_sources(gorilla PUBLIC
-	FILE_SET HEADERS
-	FILES
-	include/gorilla/gau.h
-	include/gorilla/ga_internal.h
-	include/gorilla/common/gc_thread.h
-	include/gorilla/common/gc_common.h
-	include/gorilla/common/gc_types.h
-	include/gorilla/ga.h
-	include/gorilla/devices/ga_xaudio2.h
-	include/gorilla/devices/ga_openal.h
 	)
 
 target_link_libraries(gorilla PUBLIC
@@ -48,5 +34,4 @@ target_compile_options(gorilla PRIVATE
 install(TARGETS gorilla
 	EXPORT ${pkgname}
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${pkgname}
-	FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${pkgname}/gorilla-audio
 	)

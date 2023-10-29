@@ -1,8 +1,7 @@
 #pragma once
 
 #include "sparky-gl.h"
-#include <FreeImage.h>
 
 namespace sparky {
-	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height, int* bpp=nullptr);
+	uint8_t* load_image(const char* filename, GLsizei* width, GLsizei* height, int* bpp=nullptr);
 }

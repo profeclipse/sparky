@@ -5,7 +5,7 @@
 #include "utils/Log.h"
 
 namespace sparky {
-	BYTE* load_image(const char* filename, GLsizei* width, GLsizei* height,int* bpp) {
+	uint8_t* load_image(const char* filename, GLsizei* width, GLsizei* height,int* bpp) {
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		FIBITMAP* dib = nullptr;
 		fif = FreeImage_GetFileType(filename,0);
@@ -25,7 +25,7 @@ namespace sparky {
 			return nullptr;
 		}
 
-		BYTE* pixels = FreeImage_GetBits(dib);
+		uint8_t* pixels = FreeImage_GetBits(dib);
 		*width = FreeImage_GetWidth(dib);
 		*height = FreeImage_GetHeight(dib);
 		int bits = FreeImage_GetBPP(dib);
@@ -39,7 +39,7 @@ namespace sparky {
 #endif
 
 		int size = *width * *height * (bits / 8);
-		BYTE* result = new BYTE[size];
+		uint8_t* result = new uint8_t[size];
 		memcpy(result,pixels,size);
 		FreeImage_Unload(dib);
 		return result;

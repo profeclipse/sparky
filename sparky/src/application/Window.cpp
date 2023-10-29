@@ -1,4 +1,5 @@
 #include <iostream>
+#include <FreeImage.h>
 #include "sparky-gl.h"
 #include "sparky-utils.h"
 #include "graphics/FontManager.h"

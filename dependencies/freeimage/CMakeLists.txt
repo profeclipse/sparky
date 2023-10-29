@@ -228,117 +228,13 @@ add_library(sparky::freeimage ALIAS freeimage)
 
 target_include_directories(freeimage PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/Metadata>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/Metadata>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/FreeImageToolkit>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/FreeImageToolkit>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/LibJPEG>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/LibJPEG>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/LibPNG>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/LibPNG>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/LibTIFF4>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/LibTIFF4>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/ZLib>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/ZLib>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Source/LibOpenJPEG>
-	$<INSTALL_INTERFACE:include/${pkgname}/freeimage/Source/LibOpenJPEG>
-	)
-
-target_sources(freeimage PUBLIC
-	FILE_SET HEADERS
-	FILES
-	Source/MapIntrospector.h
-	Source/LibTIFF4/tif_dir.h
-	Source/LibTIFF4/tif_config.wince.h
-	Source/LibTIFF4/tif_config.h
-	Source/LibTIFF4/tif_fax3.h
-	Source/LibTIFF4/tif_predict.h
-	Source/LibTIFF4/tiff.h
-	Source/LibTIFF4/tiffiop.h
-	Source/LibTIFF4/tiffvers.h
-	Source/LibTIFF4/tiffconf.vc.h
-	Source/LibTIFF4/t4.h
-	Source/LibTIFF4/tif_config.vc.h
-	Source/LibTIFF4/tiffio.h
-	Source/LibTIFF4/uvcode.h
-	Source/LibTIFF4/tiffconf.wince.h
-	Source/LibTIFF4/tiffconf.h
-	Source/Plugin.h
-	Source/LibJPEG/jpeglib.h
-	Source/LibJPEG/jerror.h
-	Source/LibJPEG/jmemsys.h
-	Source/LibJPEG/jconfig.h
-	Source/LibJPEG/jmorecfg.h
-	Source/LibJPEG/cdjpeg.h
-	Source/LibJPEG/jdct.h
-	Source/LibJPEG/jversion.h
-	Source/LibJPEG/cderror.h
-	Source/LibJPEG/jinclude.h
-	Source/LibJPEG/transupp.h
-	Source/LibJPEG/jpegint.h
-	Source/LibPNG/pnginfo.h
-	Source/LibPNG/pngstruct.h
-	Source/LibPNG/pngpriv.h
-	Source/LibPNG/png.h
-	Source/LibPNG/pnglibconf.h
-	Source/LibPNG/pngconf.h
-	Source/LibPNG/pngdebug.h
-	Source/FreeImage.h
-	Source/LibOpenJPEG/opj_config.h
-	Source/LibOpenJPEG/tgt.h
-	Source/LibOpenJPEG/invert.h
-	Source/LibOpenJPEG/pi.h
-	Source/LibOpenJPEG/opj_malloc.h
-	Source/LibOpenJPEG/cio.h
-	Source/LibOpenJPEG/t1_luts.h
-	Source/LibOpenJPEG/bio.h
-	Source/LibOpenJPEG/event.h
-	Source/LibOpenJPEG/mqc.h
-	Source/LibOpenJPEG/opj_inttypes.h
-	Source/LibOpenJPEG/openjpeg.h
-	Source/LibOpenJPEG/function_list.h
-	Source/LibOpenJPEG/j2k.h
-	Source/LibOpenJPEG/indexbox_manager.h
-	Source/LibOpenJPEG/opj_config_private.h
-	Source/LibOpenJPEG/jp2.h
-	Source/LibOpenJPEG/opj_codec.h
-	Source/LibOpenJPEG/raw.h
-	Source/LibOpenJPEG/opj_includes.h
-	Source/LibOpenJPEG/t1.h
-	Source/LibOpenJPEG/dwt.h
-	Source/LibOpenJPEG/tcd.h
-	Source/LibOpenJPEG/cidx_manager.h
-	Source/LibOpenJPEG/opj_clock.h
-	Source/LibOpenJPEG/opj_stdint.h
-	Source/LibOpenJPEG/opj_intmath.h
-	Source/LibOpenJPEG/t2.h
-	Source/LibOpenJPEG/image.h
-	Source/LibOpenJPEG/mct.h
-	Source/Quantizers.h
-	Source/FreeImageToolkit/Resize.h
-	Source/FreeImageToolkit/Filters.h
-	Source/Utilities.h
-	Source/ZLib/zutil.h
-	Source/ZLib/inftrees.h
-	Source/ZLib/inffixed.h
-	Source/ZLib/trees.h
-	Source/ZLib/inffast.h
-	Source/ZLib/deflate.h
-	Source/ZLib/gzguts.h
-	Source/ZLib/zlib.h
-	Source/ZLib/inflate.h
-	Source/ZLib/crc32.h
-	Source/ZLib/zconf.h
-	Source/CacheFile.h
-	Source/FreeImageIO.h
-	Source/ToneMapping.h
-	Source/FreeImage/toFloat.h
-	Source/FreeImage/J2KHelper.h
-	Source/FreeImage/PSDParser.h
-	Source/FreeImage/eLut.h
-	Source/Metadata/FreeImageTag.h
-	Source/Metadata/FIRational.h
 	)
 
 target_compile_options(freeimage PRIVATE
@@ -367,5 +263,4 @@ target_compile_options(freeimage PRIVATE $<$<COMPILE_LANGUAGE:CXX>:
 install(TARGETS freeimage
 	EXPORT ${pkgname}
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${pkgname}
-	FILE_SET HEADERS DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${pkgname}/freeimage
 	)
