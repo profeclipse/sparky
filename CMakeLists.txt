@@ -19,7 +19,7 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 
-option(SPARKY_BUILD_DEMO "Build demo application" ON)
+option(SPARKY_BUILD_DEMO "Build demo application" OFF)
 
 message("Sparky Version: ${sparky_VERSION}")
 
