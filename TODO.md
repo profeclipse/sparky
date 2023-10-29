@@ -14,4 +14,6 @@ to include any non-sparky headers in the install package.
     - DONE - ImageUtils.h - freeimage.h
     - CANCELED - Need templates at header level - LogUtils.h - spdlog.h
 10. Write documentation!
+11. Add version.h and get CMake to use that to set the version info for the build system.
+12. Add ECS (probably EnTT) and rework rendering as appropriate.
 
