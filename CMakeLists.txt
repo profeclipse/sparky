@@ -19,7 +19,7 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 
-option(BUILD_DEMO "Build demo application" ON)
+option(SPARKY_BUILD_DEMO "Build demo application" ON)
 
 message("Sparky Version: ${sparky_VERSION}")
 
@@ -36,7 +36,7 @@ include(GNUInstallDirs)
 add_subdirectory(dependencies)
 add_subdirectory(sparky)
 
-if(BUILD_DEMO)
+if(SPARKY_BUILD_DEMO)
 	add_subdirectory(sparky-demo)
 endif()
 
