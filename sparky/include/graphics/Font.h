@@ -18,7 +18,6 @@ namespace sparky {
 			vec2 m_scale;
 			std::string m_name;
 			std::string m_filename;
-			unsigned int m_id; // shadow copy of m_ftAtlas->id
 
 		public:
 			Font(std::string name, std::string filename, uint16_t size);
@@ -29,7 +28,7 @@ namespace sparky {
 
 			ftgl::texture_font_t* getFTFont() const	{ return m_ftFont; }
 
-			unsigned int getID() const				{ return m_id; }
+			unsigned int getID() const;
 			const vec2& getScale() const			{ return m_scale; }
 			const std::string& getName() const		{ return m_name; }
 			const std::string& getFileName() const	{ return m_filename; }

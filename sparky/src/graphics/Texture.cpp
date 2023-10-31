@@ -23,7 +23,7 @@ namespace sparky {
 	GLuint Texture::load(uint32_t transparent) {
 		int bpp;
 		auto pixels = (Scope<uint8_t>)load_image(m_file.c_str(),&m_width,&m_height,&bpp);
-		if (pixels == nullptr) {
+		if (pixels.get() == nullptr) {
 			SP_ERROR("[Texture::load] - error loading image '{}'",m_file);
 			return 0;
 		}
@@ -61,7 +61,7 @@ namespace sparky {
 			oFormat = GL_BGRA;
 #endif
 			if (transparent != 0x0000000) {
-				uint32_t* data = (uint32_t*)pixels.get();
+				uint32_t* data = (uint32_t*)(pixels.get());
 				for (uint32_t i=0 ; i<m_width*m_height ; ++i) {
 					if (data[i] == transparent)
 						data[i] = 0x00000000;

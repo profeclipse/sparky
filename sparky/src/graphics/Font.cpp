@@ -12,8 +12,6 @@ namespace sparky {
 			SP_ERROR("[Font::Font] - texture_atlas_new failed");
 		if (m_ftFont == nullptr)
 			SP_ERROR("[Font::Font] - texture_font_new_from_file failed");
-
-		m_id = m_ftAtlas->id;
 	}
 
 	Font::~Font() {
@@ -29,5 +27,9 @@ namespace sparky {
 	void Font::setScale(const vec2& scale)
 	{
 		m_scale = scale;
+	}
+
+	unsigned int Font::getID() const {
+		return m_ftAtlas->id;
 	}
 }

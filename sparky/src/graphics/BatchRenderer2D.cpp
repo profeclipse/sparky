@@ -136,6 +136,8 @@ namespace sparky {
 		bool found = false;
 		for (int i=0; i<m_textureSlots.size(); ++i)
 		{
+			// BUG: until texture_font_get_glyph is called the first time
+			// font.getID() is 0!!!
 			if (m_textureSlots[i] == font.getID())
 			{
 				ts = (float)(i+1);

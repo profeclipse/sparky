@@ -45,7 +45,7 @@ do
 		dir="build"
 	fi
 
-	cmake --build ${dir} $@
+	cmake --build ${PROJDIR}/${dir} $@
 	ret=$?
 	if [ ${ret} -ne 0 ]
 	then
